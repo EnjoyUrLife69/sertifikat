@@ -8,7 +8,7 @@
         <meta content="" name="keywords">
         <meta content="" name="description">
 
-        <link rel="icon" href="{{asset('assets/img/logo-bartech-no-text.png')}}" type="image/png">
+        <link rel="icon" href="assets/img/logo-bartech-no-text.png" type="image/png">
 
         <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">

@@ -9,8 +9,8 @@
 
     <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
     <meta name="description" content="" />
-    <link rel="icon" href="{{ asset('assets/img/logo-bartech-no-text.png')}}" type="image/png">
-    
+    <link rel="icon" href="assets/img/logo-bartech-no-text.png" type="image/png">
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon"
         href="{{ asset('assets/img/favicon/favicon.ico"') }}' />

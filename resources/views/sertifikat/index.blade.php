@@ -7,9 +7,9 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Dashboard</title>
+    <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
     <meta name="description" content="" />
-    <link rel="icon" href="{{asset('assets/img/logo-bartech.png')}}">
+    <link rel="icon" href="assets/img/logo-bartech-no-text.png" type="image/png">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon"

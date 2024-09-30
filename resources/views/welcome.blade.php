@@ -3,7 +3,7 @@
 @section('content')
 
     <!-- Carousel Start -->
-    <div class="header-carousel owl-carousel" id="carosel">
+    <div class="header-carousel owl-carousel">
         <div class="header-carousel-item">
             <div class="header-carousel-item-img-1">
                 <img src="{{ asset('User/img/carousel-1.jpg') }}" class="img-fluid w-100" alt="Image">
@@ -11,13 +11,16 @@
             <div class="carousel-caption">
                 <div class="carousel-caption-inner text-start p-3">
                     <h1 class="display-1 text-capitalize text-white mb-4 fadeInUp animate__animated" data-animation="fadeInUp"
-                        data-delay="0.3s" style="animation-delay: 0.3s;">Pelatihan Berkualitas & Sertifikasi Terpercaya</h1>
+                        data-delay="0.3s" style="animation-delay: 0.3s;">The most
+                        prestigious Investments company in worldwide.</h1>
                     <p class="mb-5 fs-5 fadeInUp animate__animated" data-animation="fadeInUp" data-delay="0.5s"
-                        style="animation-delay: 0.5s;">Tingkatkan keahlianmu dengan pelatihan profesional dan dapatkan
-                        sertifikat resmi yang diakui. Kami menyediakan platform untuk memastikan kesuksesan karirmu.</p>
+                        style="animation-delay: 0.5s;">Lorem Ipsum is simply dummy text of the printing and
+                        typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the
+                        1500s,
+                    </p>
+
                 </div>
             </div>
-
         </div>
         <div class="header-carousel-item mx-auto">
             <div class="header-carousel-item-img-2">
@@ -25,15 +28,15 @@
             </div>
             <div class="carousel-caption">
                 <div class="carousel-caption-inner text-center p-3">
-                    <h1 class="display-1 text-capitalize text-white mb-4">Pelatihan dan Sertifikasi Terbaik untuk Masa
-                        Depanmu</h1>
-                    <p class="mb-5 fs-5">Kami menawarkan pelatihan berkualitas dengan sertifikasi resmi yang diakui.
-                        Persiapkan diri kamu untuk tantangan dunia kerja dengan keahlian yang lebih baik.</p>
-                    {{-- <a class="btn btn-primary rounded-pill py-3 px-5 mb-4 me-4" href="#">Daftar Sekarang</a>
-        <a class="btn btn-dark rounded-pill py-3 px-5 mb-4" href="#">Pelajari Lebih Lanjut</a> --}}
+                    <h1 class="display-1 text-capitalize text-white mb-4">The most prestigious Investments company
+                        in worldwide.</h1>
+                    <p class="mb-5 fs-5">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                    </p>
+                    {{-- <a class="btn btn-primary rounded-pill py-3 px-5 mb-4 me-4" href="#">Apply Now</a>
+                        <a class="btn btn-dark rounded-pill py-3 px-5 mb-4" href="#">Read More</a> --}}
                 </div>
             </div>
-
         </div>
         <div class="header-carousel-item">
             <div class="header-carousel-item-img-3">
@@ -41,12 +44,13 @@
             </div>
             <div class="carousel-caption">
                 <div class="carousel-caption-inner text-end p-3">
-                    <h1 class="display-1 text-capitalize text-white mb-4">Tingkatkan Kemampuanmu dengan Sertifikasi
-                        Profesional</h1>
-                    <p class="mb-5 fs-5">Dapatkan pelatihan terbaik yang akan membekalimu dengan sertifikat resmi untuk
-                        menunjang karirmu. Kami hadir untuk memastikan setiap langkah suksesmu.</p>
-                    {{-- <a class="btn btn-primary rounded-pill py-3 px-5 mb-4 me-4" href="#">Daftar Sekarang</a>
-    <a class="btn btn-dark rounded-pill py-3 px-5 mb-4" href="#">Pelajari Lebih Lanjut</a> --}}
+                    <h1 class="display-1 text-capitalize text-white mb-4">The most prestigious Investments company
+                        in worldwide.</h1>
+                    <p class="mb-5 fs-5">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                    </p>
+                    {{-- <a class="btn btn-primary rounded-pill py-3 px-5 mb-4 me-4" href="#">Apply Now</a>
+                        <a class="btn btn-dark rounded-pill py-3 px-5 mb-4" href="#">Read More</a> --}}
                 </div>
             </div>
         </div>
@@ -61,11 +65,9 @@
                 <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px">
                     <h4 class="text-primary">Sertifikat</h4>
                     <h1 class="display-4">Konfirmasi Sertifikat Kamu</h1>
-                    <p class="fs-5">Verifikasi sertifikat pelatihan kamu di sini dengan mudah. Masukkan nomor
-                        sertifikat untuk memulai pengecekan.</p>
+                    <p class="fs-5">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
                 </div>
-
-                <div class="row g-4 justify-content-center " style="margin-top: -70px;">
+                <div class="row g-4 justify-content-center ">
                     <div class="container justify-content-center"></div>
                     <div class="col-lg-8 wow fadeInUp text-center" data-wow-delay="0.1s">
                         <!-- Form untuk mengecek sertifikat -->
@@ -97,13 +99,13 @@
     <!-- Cek Sertifikat End -->
 
     <!-- Services Start -->
-    <div class="container-fluid service py-5 bg-light" id="service" style="margin-top: -10rem;">
+    <div class="container-fluid service py-5 bg-light" id="service">
         <div class="container py-5">
             <div class="container-fluid service py-5 bg-light" id="service">
                 <div class="container py-5">
                     <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
                         <h4 class="text-primary">Our Services</h4>
-                        <h1 class="display-4"> Offering the Best Consulting & Professional Services</h1>
+                        <h1 class="display-4"> Offering the Best Consulting & Investa Services</h1>
                     </div>
                     <div class="row g-4 justify-content-center text-center">
 
@@ -136,9 +138,9 @@
                             </div>
                         @endforeach
 
-                        <div class="col-12 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="col-12">
                             <a class="btn btn-primary rounded-pill py-3 px-5 wow fadeInUp" data-wow-delay="0.1s"
-                                href="{{ route('more') }}">More Services</a>
+                                href="{{ route('more') }}">Services More</a>
                         </div>
                     </div>
                 </div>
@@ -158,28 +160,30 @@
                             </div>
                         </div>
                         <div class="col-lg-6 col-xl-7 wow fadeInRight" data-wow-delay="0.3s">
-                            <h4 class="text-primary">Tentang Kami</h4>
-                            <h1 class="display-5 mb-4">Solusi Pelatihan dan Sertifikasi Terbaik untuk Masa Depan Anda</h1>
-                            <p class="text ps-4 mb-4">Kami berkomitmen untuk menyediakan pelatihan berkualitas tinggi yang
-                                mendukung pengembangan karier Anda. Dengan sertifikat yang diakui secara global, Anda akan
-                                diperlengkapi dengan keahlian terbaik untuk bersaing di dunia kerja.</p>
+                            <h4 class="text-primary">About Us</h4>
+                            <h1 class="display-5 mb-4">The most Profitable Investments company in worldwide.</h1>
+                            <p class="text ps-4 mb-4">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores
+                                atque nihil unde quisquam, deleniti illo a. Quam harum laboriosam, laudantium, deleniti
+                                perferendis voluptates ex non laborum libero magni, minus illo!
+                            </p>
                             <div class="row g-4 justify-content-between mb-5">
                                 <div class="col-lg-6 col-xl-5">
-                                    <p class="text-dark"><i class="fas fa-check-circle text-primary me-1"></i> Pelatihan
-                                        Berkualitas</p>
+                                    <p class="text-dark"><i class="fas fa-check-circle text-primary me-1"></i> Strategy &
+                                        Consulting</p>
                                     <p class="text-dark mb-0"><i class="fas fa-check-circle text-primary me-1"></i>
-                                        Sertifikasi Resmi</p>
+                                        Business Process</p>
                                 </div>
                                 <div class="col-lg-6 col-xl-7">
-                                    <p class="text-dark"><i class="fas fa-check-circle text-primary me-1"></i> Program
-                                        Fleksibel</p>
+                                    <p class="text-dark"><i class="fas fa-check-circle text-primary me-1"></i> Marketing
+                                        Rules</p>
                                     <p class="text-dark mb-0"><i class="fas fa-check-circle text-primary me-1"></i>
-                                        Instruktur Berpengalaman</p>
+                                        Partnerships</p>
                                 </div>
                             </div>
                             <div class="row g-4 justify-content-between mb-5">
                                 <div class="col-xl-5"><a href="#"
-                                        class="btn btn-primary rounded-pill py-3 px-5">Temukan Lebih Lanjut</a></div>
+                                        class="btn btn-primary rounded-pill py-3 px-5">Discover
+                                        More</a></div>
                                 <div class="col-xl-7 mb-5">
                                     <div class="about-customer d-flex position-relative">
                                         <img src="{{ asset('User/img/customer-img-1.jpg') }}"
@@ -195,8 +199,8 @@
                                             class="img-fluid btn-xl-square position-absolute" style="left: 135px; top: 0;"
                                             alt="Image">
                                         <div class="position-absolute text-dark" style="left: 220px; top: 10px;">
-                                            <p class="mb-0">5m+ Terpercaya</p>
-                                            <p class="mb-0">Pelanggan Global</p>
+                                            <p class="mb-0">5m+ Trusted</p>
+                                            <p class="mb-0">Global Customers</p>
                                         </div>
                                     </div>
                                 </div>
@@ -211,7 +215,7 @@
                                             </h4>
                                         </div>
                                         <div class="w-100 d-flex align-items-center justify-content-center">
-                                            <p class="text-white mb-0">Proyek Selesai</p>
+                                            <p class="text-white mb-0">Project Complete</p>
                                         </div>
                                     </div>
                                 </div>
@@ -224,7 +228,7 @@
                                             </h4>
                                         </div>
                                         <div class="w-100 d-flex align-items-center justify-content-center">
-                                            <p class="mb-0">Tahun Pengalaman</p>
+                                            <p class="mb-0">Years Of Experience</p>
                                         </div>
                                     </div>
                                 </div>
@@ -237,7 +241,7 @@
                                             </h4>
                                         </div>
                                         <div class="w-100 d-flex align-items-center justify-content-center">
-                                            <p class="text-white mb-0">Anggota Tim</p>
+                                            <p class="text-white mb-0">Team Members</p>
                                         </div>
                                     </div>
                                 </div>
@@ -245,8 +249,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
+            </div>
         </div>
     </div>
 
