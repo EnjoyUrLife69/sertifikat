@@ -7,7 +7,6 @@ use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 
-
 // FRONTEND
 use App\Http\Controllers\WelcomeController;
 use App\Http\Middleware\CheckRole;

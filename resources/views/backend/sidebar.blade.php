@@ -75,10 +75,6 @@
 
                 </ul>
             </li>
-            <!-- Sidebar (misalnya di resources/views/layouts/sidebar.blade.php) -->
-            <div class="" style="margin-left: 5%; ">
-                <a href="{{ route('backup.create') }}" class="btn btn-primary">Backup Database</a>
-            </div>
         @endif
 
     </ul>

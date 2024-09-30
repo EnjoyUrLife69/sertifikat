@@ -14,15 +14,14 @@
                         <div class="d-flex align-items-end row">
                             <div class="col-sm-7">
                                 <div class="card-body">
-                                    <h5 class="card-title text-primary">Selamat Datang, {{ Auth::user()->name }}!</h5>
+                                    <h5 class="card-title text-primary">Selamat Datang, <b>{{ Auth::user()->name }}!</b>
+                                    </h5>
                                     <p class="mb-4">
                                         Anda telah mengelola <span class="fw-bold">{{ $total_sertifikat }}
                                             sertifikat</span> minggu ini. Terus tingkatkan performa Anda dan cek
                                         statistik terbaru di dashboard.
                                     </p>
 
-                                    <a href="{{ route('home') }}" class="btn btn-sm btn-outline-primary">Lihat
-                                        Statistik</a>
                                 </div>
 
                             </div>
@@ -51,7 +50,7 @@
                                     <i class="bx bx-dots-vertical-rounded"></i>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics">
-                                    <a class="dropdown-item" href="{{route ('training.index')}}">View More</a>
+                                    <a class="dropdown-item" href="{{ route('training.index') }}">View More</a>
                                 </div>
                             </div>
                         </div>
@@ -88,27 +87,6 @@
 
                 <!--/ Order Statistics -->
                 <div class="col">
-                    <div class="col-12 mb-4">
-                        <div class="card" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="500">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
-                                    <div
-                                        class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
-                                        <div class="card-title">
-                                            <h5 class="text-nowrap mb-2">Profile Report</h5>
-                                            <span class="badge bg-label-warning rounded-pill">Year 2021</span>
-                                        </div>
-                                        <div class="mt-sm-auto">
-                                            <small class="text-success text-nowrap fw-semibold"><i
-                                                    class="bx bx-chevron-up"></i> 68.2%</small>
-                                            <h3 class="mb-0">$84,686k</h3>
-                                        </div>
-                                    </div>
-                                    <div id="profileReportChart"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col-4">
                             <div class="card" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="700">
@@ -127,7 +105,8 @@
                                             <i class="bx bx-dots-vertical-rounded"></i>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt3">
-                                            <a class="dropdown-item" href="{{route ('sertifikat.index')}}">View More</a>
+                                            <a class="dropdown-item" href="{{ route('sertifikat.index') }}">View
+                                                More</a>
                                         </div>
                                     </div>
                                 </div>
@@ -155,6 +134,27 @@
                                         &nbsp; <b style="font-size: 15px">Peserta</b></h3><br>
                                     <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i>
                                         Sertifikat tersedia</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-2 mt-4">
+                        <div class="card" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="500">
+                            <div class="card-body" style="height: 263px">
+                                <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
+                                    <div style="margin-top : 7%; margin-left : 5%"
+                                        class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
+                                        <div class="card-title">
+                                            <h5 class="text-nowrap mb-2">Profile Report</h5>
+                                            <span class="badge bg-label-warning rounded-pill">Year 2021</span>
+                                        </div>
+                                        <div class="mt-sm-auto">
+                                            <small class="text-success text-nowrap fw-semibold"><i
+                                                    class="bx bx-chevron-up"></i> 68.2%</small>
+                                            <h3 class="mb-0">$84,686k</h3>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top : 7%;" id="profileReportChart"></div>
                                 </div>
                             </div>
                         </div>
