@@ -120,7 +120,16 @@ class WelcomeController extends Controller
             }
 
             $message = "
-        <table style='width:700px;'>
+            <p style='font-size: 30px;' class ='text-center mb-3'>Selamat! Sertifikat Anda telah berhasil ditemukan.</p>
+            <p style='font-size: 20px;' class ='text-start mb-3'>Berikut adalah detail sertifikat Anda :</p>
+        <table class='table text-start' style='width:700px; font-weight: bold; color: #105233;'>
+            <tr>
+
+                <th>Nomor Sertifikat</th>
+                <th> : </th>
+                <th>{$nomorSertifikatInput}</th>
+
+            </tr>
             <tr>
                 <th>Nama Penerima</th>
                 <th> : </th>
@@ -137,15 +146,17 @@ class WelcomeController extends Controller
                 <th>{$formattedTanggal}</th>
             </tr>
         </table>
+        <p class='text-center' style='font-size: 20px;' class ='text-start mt-3'>Terima kasih telah mengikuti pelatihan ini. Sertifikat ini menandakan bahwa Anda telah berhasil menyelesaikan pelatihan dengan baik. Kami berharap ilmu dan keterampilan yang didapatkan dapat bermanfaat di masa depan.</p>
     ";
-            return view('welcome', [
+            return redirect(url('/') . '#result')->with([
                 'status' => 'success',
                 'message' => $message,
             ], compact('limitTraining'));
+
         } else {
             // Sertifikat tidak ditemukan
-            return view('welcome', [
-                'status' => 'error',
+            return redirect(url('/') . '#sertifikat')->with([
+                'status' => 'danger',
                 'message' => 'Sertifikat tidak ditemukan. Silakan cek kembali.',
             ], compact('limitTraining'));
         }

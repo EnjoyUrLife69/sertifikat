@@ -36,8 +36,8 @@
                                         </div>
                                     </div>
                                     <div class="flex-grow-1">
-                                        <span class="fw-semibold d-block">John Doe</span>
-                                        <small class="text-muted">Admin</small>
+                                        <span class="fw-semibold d-block">{{ Auth::user()->name }}</span>
+                                        <small class="text-muted">{{ Auth::user()->roles->nama_role }}</small>
                                     </div>
                                 </div>
                             </a>
@@ -57,7 +57,6 @@
                                     </div>
                                 </div>
                             </a>
-                            <div class="dropdown-divider"></div>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>

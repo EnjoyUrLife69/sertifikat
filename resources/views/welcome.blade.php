@@ -1,7 +1,6 @@
 @extends('layouts.user')
 
 @section('content')
-
     <!-- Carousel Start -->
     <div class="header-carousel owl-carousel" id="carosel">
         <div class="header-carousel-item">
@@ -57,7 +56,7 @@
     <!-- Cek Sertifikat Start -->
     <div class="container-fluid sertifikat py-5 bg-light" id="sertifikat">
         <div class="container py-5 mt-5" style="margin-bottom: 5rem;">
-            <div class="card py-5 shadow-lg border-0 rounded wow fadeInUp" data-wow-delay="0.1s"
+            <div id="result" class="card py-5 shadow-lg border-0 rounded wow fadeInUp" data-wow-delay="0.1s"
                 style="margin-bottom: 5rem;">
                 <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px">
                     <h4 class="text-primary">Sertifikat</h4>
@@ -81,14 +80,13 @@
                             <button class="btn btn-primary mt-4 w-100" type="submit">Cek</button>
                         </form>
                         <!-- Tempat untuk menampilkan hasil -->
-                        <div id="result" class="mt-4">
-                            @if (isset($message))
-                                @if ($status == 'success')
-                                    <div class="alert alert-success">{!! $message !!}</div>
-                                @else
-                                    <div class="alert alert-danger">{!! $message !!}</div>
-                                @endif
+                        <div class="mt-4">
+                            @if (session('status') && session('message'))
+                                <div class="alert alert-{{ session('status') }}">
+                                    {!! session('message') !!}
+                                </div>
                             @endif
+
                         </div>
                     </div>
                 </div>
@@ -134,7 +132,7 @@
                             </div>
                         @endforeach
 
-                        <div class="col-12 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="col-12 wow fadeInUp" data-wow-delay="0.1s" style="margin-top: 5%;">
                             <a class="btn btn-primary rounded-pill py-3 px-5 wow fadeInUp" data-wow-delay="0.1s"
                                 href="{{ route('more') }}">More Services</a>
                         </div>
@@ -178,8 +176,8 @@
                         </div>
                     </div>
                     <div class="row g-4 justify-content-between mb-5">
-                        <div class="col-xl-5"><a href="#" class="btn btn-primary rounded-pill py-3 px-5">Temukan
-                                Lebih Lanjut</a></div>
+                        {{-- <div class="col-xl-5"><a href="#"
+                                        class="btn btn-primary rounded-pill py-3 px-5">Temukan Lebih Lanjut</a></div> --}}
                         <div class="col-xl-7 mb-5">
                             <div class="about-customer d-flex position-relative">
                                 <img src="{{ asset('User/img/customer-img-1.jpg') }}"

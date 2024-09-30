@@ -3,7 +3,6 @@
 @section('content')
 
     <body>
-
         <!-- Header Start -->
         <div class="container-fluid bg-breadcrumb">
             <div class="bg-breadcrumb-single"></div>
@@ -22,8 +21,7 @@
             <div class="row g-4">
                 <center>
                     <div style="width: 60%">
-                        <h1 style="font-size: 30px; color: #102147" class="display-5 mb-4">Discover a range of training
-                            programs designed to enhance your skills and broaden your horizons toward success.</h1>
+                        <h1 style="font-size: 30px; color: #102147" class="display-5 mb-4">Temukan berbagai program pelatihan yang dirancang untuk meningkatkan keterampilan Anda dan memperluas wawasan Anda menuju kesuksesan.</h1>
                     </div>
                 </center>
                 @foreach ($training as $data)

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_penerima');
             $table->unsignedBigInteger('id_training');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->boolean('status')->default(0);
             
             $table->timestamps();

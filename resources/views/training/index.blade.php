@@ -7,13 +7,10 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Dashboard</title>
     <meta name="description" content="" />
-    <link rel="icon" href="assets/img/logo-bartech-no-text.png" type="image/png">
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon"
-        href="{{ asset('assets/img/favicon/favicon.ico"') }}' />
+    <link rel="icon" href="{{asset('assets/img/logo-bartech-no-text.png')}}" type="image/png">
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico"') }}' />
 
     {{-- Bootstrap 5 --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -341,7 +338,9 @@
 
 
     </div>
-
+    
+{{-- Script - Script --}}
+<footer>
     <!-- Datatables JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
@@ -396,6 +395,8 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+</footer>
+
 </body>
 
 </html>

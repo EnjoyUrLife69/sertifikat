@@ -9,7 +9,7 @@ use setasign\Fpdi\Fpdi;
 
 class SertifikatController extends Controller
 {
-    public function index( Request $request)
+    public function index(Request $request)
     {
         $training = Training::all();
 
@@ -47,8 +47,7 @@ class SertifikatController extends Controller
             }
         }
 
-
-        return view('sertifikat.index', compact('sertifikat', 'training' , 'id_training')); 
+        return view('sertifikat.index', compact('sertifikat', 'training', 'id_training'));
     }
 
     public function create()
@@ -101,9 +100,16 @@ class SertifikatController extends Controller
         $request->validate([
             'nama_penerima' => 'required|string|max:255',
             'id_training' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:sertifikats,email',
+        ], [
+            'email.unique' => 'Email ini sudah terdaftar, silakan gunakan email lain.',
         ]);
-        
+
+        // Jika validasi berhasil, simpan data
+        Sertifikat::create([
+            'email' => $request->email,
+        ]);
+
         $sertifikat = Sertifikat::findOrFail($id);
         $sertifikat->nama_penerima = $request->nama_penerima;
         $sertifikat->id_training = $request->id_training;

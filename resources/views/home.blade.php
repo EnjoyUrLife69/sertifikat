@@ -41,55 +41,62 @@
 </head>
 
 <body>
-    <!-- Layout wrapper -->
-    <div class="layout-wrapper layout-content-navbar">
-        @if (session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
+
+    <main>
+        <!-- Layout wrapper -->
+        <div class="layout-wrapper layout-content-navbar">
+            @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+
+            <div class="layout-container">
+
+                {{-- SIDEBAR --}}
+                @include('backend.sidebar')
+
+                {{-- CONTENT --}}
+                @include('backend.content')
+
+
             </div>
-        @endif
-
-        <div class="layout-container">
-
-            {{-- SIDEBAR --}}
-            @include('backend.sidebar')
-
-            {{-- CONTENT --}}
-            @include('backend.content')
-
 
         </div>
+        <!-- / Layout wrapper -->
+    </main>
 
-    </div>
-    <!-- / Layout wrapper -->
+    {{-- Script - Script --}}
+    <footer>
+        <!-- Core JS -->
+        <!-- build:js assets/vendor/js/core.js -->
+        <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
+        <script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>
+        <script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
+        <script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
+        <script src="{{ asset('assets/vendor/js/menu.js') }}"></script>
+        <!-- endbuild -->
 
-    <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
-    <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>
-    <script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
-    <script src="{{ asset('assets/vendor/js/menu.js') }}"></script>
-    <!-- endbuild -->
+        <!-- Vendors JS -->
+        <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
 
-    <!-- Vendors JS -->
-    <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+        <!-- Main JS -->
+        <script src="{{ asset('assets/js/main.js') }}"></script>
 
-    <!-- Main JS -->
-    <script src="{{ asset('assets/js/main.js') }}"></script>
+        <!-- Page JS -->
+        <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
 
-    <!-- Page JS -->
-    <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
-
-    <!-- DATA AOS -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init();
-    </script>
+        <!-- DATA AOS -->
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <script>
+            AOS.init();
+        </script>
 
 
-    <!-- Place this tag in your head or just before your close body tag. -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
+        <!-- Place this tag in your head or just before your close body tag. -->
+        <script async defer src="https://buttons.github.io/buttons.js"></script>
+    </footer>
+
 </body>
 
 </html>
