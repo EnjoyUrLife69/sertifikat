@@ -136,7 +136,7 @@
                                             <div class="row">
                                                 <div class="col-md-5">
                                                     <select class="form-select placement-dropdown" name="id_training"
-                                                        style="margin-left: 155px; margin-top: 16px; width: 220px;"
+                                                        style="margin-left: 115px; margin-top: 16px; width: 220px;"
                                                         id="exampleSelectGender">
                                                         <option value=""
                                                             {{ is_null(request()->get('id_training')) ? 'selected' : '' }}>
@@ -149,10 +149,10 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
-                                                <div class="col-md-1">
+                                                <div class="col-md-1" style="margin-left: 187px; margin-top: 16px;">
                                                     <button type="submit"
                                                         class="btn btn-info d-flex align-items-center"
-                                                        style="margin-left: 226px; margin-top: 16px;">
+                                                        >
                                                         <i class='bx bx-filter-alt' style="margin-right: 8px;"></i>
                                                         Filter
                                                     </button>
@@ -163,9 +163,9 @@
                                     </div>
 
                                     {{-- EXPORT TO EXCEL BUTTON --}}
-                                    <div class="col-2">
+                                    <div class="col-2" style="margin-top: 16px; margin-left: 100px; width: 75px;">
                                         <a href="{{ route('export.excel') }}" class="btn btn-success"
-                                            style="margin-top: 16px; margin-left: 120px;" data-bs-toggle="tooltip"
+                                            data-bs-toggle="tooltip"
                                             data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
                                             title="Export to Excel">
                                             <i class='bx bxs-file-export'></i>
