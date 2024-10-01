@@ -60,7 +60,6 @@
                                     <h2 class="mb-2"> {{ $total_pelatihan }} </h2>
                                     <span>Total Jumlah <br> kelas Pelatihan</span>
                                 </div>
-                                <div id="orderStatisticsChart"></div>
                             </div>
                             <ul class="p-0 m-0">
                                 @foreach ($limitTraining as $data)

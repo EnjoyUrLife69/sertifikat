@@ -24,6 +24,8 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('/sertifikat/{id}/preview', [SertifikatController::class, 'printCertificate'])->name('sertifikat.preview')->defaults('isPreview', true);
     Route::get('/sertifikat/{id}/print', [SertifikatController::class, 'printCertificate'])->name('sertifikat.print');
     Route::post('/sertifikat/{id}/status', [SertifikatController::class, 'status'])->name('sertifikat.status');
+    Route::get('/export-excel', [SertifikatController::class, 'exportExcel'])->name('export.excel');
+
 
     // USER
     Route::get('/user', function (Request $request) {

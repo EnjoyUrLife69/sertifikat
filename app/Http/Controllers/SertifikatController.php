@@ -1,10 +1,12 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Exports\SertifikatExport;
 use App\Models\Sertifikat;
 use App\Models\Training;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use setasign\Fpdi\Fpdi;
 
 class SertifikatController extends Controller
@@ -332,6 +334,13 @@ class SertifikatController extends Controller
             ]);
         }
 
+    }
+
+    public function exportExcel()
+    {
+        $data = Sertifikat::with('training')->get();
+
+        return Excel::download(new SertifikatExport($data), 'sertifikat.xlsx');
     }
 
 }
