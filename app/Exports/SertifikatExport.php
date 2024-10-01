@@ -54,9 +54,9 @@ class SertifikatExport implements FromCollection, WithHeadings, WithStyles, Shou
         foreach ($this->data as $index => $sertifikat) {
             $rowIndex = $index + 2; // karena baris pertama adalah header
             if ($sertifikat->status) { // Selesai Pelatihan
-                $sheet->getStyle('E' . $rowIndex)->getFont()->getColor()->setARGB('008000');
+                $sheet->getStyle('E' . $rowIndex)->getFont()->getColor()->setARGB('008000'); //hex kode warna hejo
             } else { // Terdaftar
-                $sheet->getStyle('E' . $rowIndex)->getFont()->getColor()->setARGB(Color::COLOR_BLUE);
+                $sheet->getStyle('E' . $rowIndex)->getFont()->getColor()->setARGB('0000FF'); //hex kode warna biru
             }
         }
     }
