@@ -162,6 +162,7 @@
                                         </form>
                                     </div>
 
+                                    {{-- EXPORT TO EXCEL BUTTON --}}
                                     <div class="col-2">
                                         <a href="{{ route('export.excel') }}" class="btn btn-success"
                                             style="margin-top: 16px; margin-left: 120px;" data-bs-toggle="tooltip"
@@ -170,7 +171,6 @@
                                             <i class='bx bxs-file-export'></i>
                                         </a>
                                     </div>
-
 
                                     {{-- CREATE DATA --}}
                                     <div class="col-2">
