@@ -155,7 +155,6 @@
                                                         <i class='bx bx-filter-alt' style="margin-right: 8px;"></i>
                                                         Filter
                                                     </button>
-
                                                 </div>
                                             </div>
                                         </form>
@@ -166,19 +165,19 @@
                                         <a href="{{ route('export.pdf', ['id_training' => request()->get('id_training')]) }}"
                                             class="btn btn-danger" data-bs-toggle="tooltip" data-bs-offset="0,4"
                                             data-bs-placement="top" data-bs-html="true" title="Export to PDF">
-                                            <i class='bx bxs-file-export'></i>
+                                            <i class='bx bxs-file-pdf'></i>
                                         </a>
                                     </div>
-
 
                                     {{-- EXPORT TO EXCEL BUTTON --}}
                                     <div class="col-2" style="margin-top: 16px; margin-left: -10px; width: 75px;">
-                                        <a href="{{ route('export.excel') }}" class="btn btn-success"
-                                            data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
-                                            data-bs-html="true" title="Export to Excel">
+                                        <a href="{{ route('export.excel', ['id_training' => request()->get('id_training')]) }}"
+                                            class="btn btn-success" data-bs-toggle="tooltip" data-bs-offset="0,4"
+                                            data-bs-placement="top" data-bs-html="true" title="Export to Excel">
                                             <i class='bx bxs-file-export'></i>
                                         </a>
                                     </div>
+
 
                                     {{-- CREATE DATA --}}
                                     <div class="col-2">

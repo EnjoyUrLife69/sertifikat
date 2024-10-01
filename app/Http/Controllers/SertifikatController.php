@@ -328,7 +328,15 @@ class SertifikatController extends Controller
 
     public function exportExcel()
     {
-        $data = Sertifikat::with('training')->get();
+        // Mengambil id_training dari request
+        $idTraining = request()->get('id_training');
+
+        // Mengambil data sertifikat dengan filter jika id_training diberikan
+        if ($idTraining) {
+            $data = Sertifikat::with('training')->where('id_training', $idTraining)->get();
+        } else {
+            $data = Sertifikat::with('training')->get();
+        }
 
         return Excel::download(new SertifikatExport($data), 'sertifikat.xlsx');
     }

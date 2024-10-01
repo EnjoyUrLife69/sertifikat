@@ -33,11 +33,10 @@ class SertifikatExport implements FromCollection, WithHeadings, WithStyles, Shou
             return [
                 'ID' => $sertifikat->id,
                 'Nama Penerima' => $sertifikat->nama_penerima,
-                'Nama Pelatihan' => $sertifikat->training->nama_training,
+                'Nama Pelatihan' => $training ? $training->nama_training : '-', // Memastikan ada nilai untuk nama pelatihan
                 'Email' => $sertifikat->email,
                 'Status' => $sertifikat->status ? 'Selesai Pelatihan' : 'Terdaftar',
                 'No Sertifikat' => $nomorSertifikat,
-
             ];
         });
     }
@@ -54,7 +53,7 @@ class SertifikatExport implements FromCollection, WithHeadings, WithStyles, Shou
         ];
     }
 
-    public function styles(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $sheet)
+    public function styles(Worksheet $sheet)
     {
         $sheet->getStyle('E2:E' . $sheet->getHighestRow())->applyFromArray([
             'font' => [
@@ -66,7 +65,7 @@ class SertifikatExport implements FromCollection, WithHeadings, WithStyles, Shou
         foreach ($this->data as $index => $sertifikat) {
             $rowIndex = $index + 2; // karena baris pertama adalah header
             if ($sertifikat->status) { // Selesai Pelatihan
-                $sheet->getStyle('E' . $rowIndex)->getFont()->getColor()->setARGB('008000'); //hex kode warna hejo
+                $sheet->getStyle('E' . $rowIndex)->getFont()->getColor()->setARGB('008000'); //hex kode warna hijau
             } else { // Terdaftar
                 $sheet->getStyle('E' . $rowIndex)->getFont()->getColor()->setARGB('0000FF'); //hex kode warna biru
             }
@@ -93,7 +92,7 @@ class SertifikatExport implements FromCollection, WithHeadings, WithStyles, Shou
             $sertifikat->id, // ID Nama Penerima
             $training->kode, // Kode dari tabel training
             $bulanRomaji, // Bulan dalam format Romawi
-            $startDate->year // Tahun
+            $startDate->year// Tahun
         );
     }
 }
