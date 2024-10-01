@@ -111,9 +111,10 @@
             </tr>
         </thead>
         <tbody>
+            @php $no=1; @endphp
             @foreach ($sertifikat as $data)
                 <tr>
-                    <td>{{ $data->id }}</td>
+                    <td>{{ $no++ }}</td>
                     <td>{{ $data->nama_penerima }}</td>
                     <td>{{ $data->email }}</td>
                     <td>{{ $data->training ? $data->training->nama_training : '-' }}</td>

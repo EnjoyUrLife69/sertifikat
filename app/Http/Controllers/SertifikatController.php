@@ -333,7 +333,7 @@ class SertifikatController extends Controller
 
         // Mengambil data sertifikat dengan filter jika id_training diberikan
         if ($idTraining) {
-            $data = Sertifikat::with('training')->where('id_training', $idTraining)->get();
+            $data = Sertifikat::with('training')->where('id_training', $idTraining)->orderBy('nama_penerima', 'asc')->get();
         } else {
             $data = Sertifikat::with('training')->get();
         }
@@ -351,6 +351,7 @@ class SertifikatController extends Controller
             ->when($idTraining, function ($query) use ($idTraining) {
                 return $query->where('id_training', $idTraining);
             })
+            ->orderBy('nama_penerima', 'asc')
             ->get();
 
         // Cek apakah ada sertifikat yang ditemukan
