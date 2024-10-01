@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Training;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class MoreController extends Controller
 {
@@ -51,6 +50,29 @@ class MoreController extends Controller
                 $data->formatted_tanggal = "{$formattedStartDate} - {$formattedEndDate}";
             }
         }
+        $limitTrainingfooter = Training::orderBy('created_at', 'desc')->limit(2)->get();
+        foreach ($limitTrainingfooter as $data) {
+            $startTanggal = Carbon::parse($data->tanggal_mulai);
+            $endTanggal = Carbon::parse($data->tanggal_selesai);
 
-        return view('more', compact('training'));
-    }}
+            // Format dates with ordinal suffix
+            $formattedstartTanggal = $this->formatWithOrdinal($startTanggal);
+            $formattedendTanggal = $this->formatWithOrdinal($endTanggal);
+
+            if ($startTanggal->format('F Y') === $endTanggal->format('F Y')) {
+                $formattedMonth = $startTanggal->translatedFormat('F');
+                $formattedYear = $startTanggal->translatedFormat('Y');
+
+                $data->formatted_tanggal_training = "{$formattedMonth} {$formattedstartTanggal} - {$formattedendTanggal} , {$formattedYear}";
+            } else {
+                // Different months
+                $formattedstartTanggal = $startTanggal->format('F j');
+                $formattedendTanggal = $endTanggal->format('F j ,Y');
+
+                $data->formatted_tanggal_training = "{$formattedstartTanggal} - {$formattedendTanggal}";
+            }
+        }
+
+        return view('more', compact('training', 'limitTrainingfooter'));
+    }
+}

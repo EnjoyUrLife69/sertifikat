@@ -50,8 +50,30 @@ class WelcomeController extends Controller
                 $data->formatted_tanggal_training = "{$formattedstartTanggal} - {$formattedendTanggal}";
             }
         }
+        $limitTrainingfooter = Training::orderBy('created_at', 'desc')->limit(2)->get();
+        foreach ($limitTrainingfooter as $data) {
+            $startTanggal = Carbon::parse($data->tanggal_mulai);
+            $endTanggal = Carbon::parse($data->tanggal_selesai);
 
-        return view('welcome', compact('limitTraining'));
+            // Format dates with ordinal suffix
+            $formattedstartTanggal = $this->formatWithOrdinal($startTanggal);
+            $formattedendTanggal = $this->formatWithOrdinal($endTanggal);
+
+            if ($startTanggal->format('F Y') === $endTanggal->format('F Y')) {
+                $formattedMonth = $startTanggal->translatedFormat('F');
+                $formattedYear = $startTanggal->translatedFormat('Y');
+
+                $data->formatted_tanggal_training = "{$formattedMonth} {$formattedstartTanggal} - {$formattedendTanggal} , {$formattedYear}";
+            } else {
+                // Different months
+                $formattedstartTanggal = $startTanggal->format('F j');
+                $formattedendTanggal = $endTanggal->format('F j ,Y');
+
+                $data->formatted_tanggal_training = "{$formattedstartTanggal} - {$formattedendTanggal}";
+            }
+        }
+
+        return view('welcome', compact('limitTraining', 'limitTrainingfooter'));
     }
     public function checkCertificate(Request $request)
     {
@@ -64,7 +86,7 @@ class WelcomeController extends Controller
         if (count($parts) !== 4) {
             // Jika format tidak sesuai
             return view('welcome', [
-                'status' => 'error',
+                'status' => 'danger',
                 'message' => 'Format nomor sertifikat tidak valid. Silakan cek kembali.',
             ]);
         }
@@ -76,9 +98,31 @@ class WelcomeController extends Controller
         $sertifikat = Sertifikat::with('training')->where('id', $idNamaPenerima)->first();
         $training = Training::where('kode', $kodeTraining)->first();
         $limitTraining = Training::orderBy('created_at', 'desc')->limit(4)->get();
+        $limitTrainingfooter = Training::orderBy('created_at', 'desc')->limit(2)->get();
 
         // Format tanggal untuk $limitTraining
         foreach ($limitTraining as $data) {
+            $startTanggal = Carbon::parse($data->tanggal_mulai);
+            $endTanggal = Carbon::parse($data->tanggal_selesai);
+
+            // Format dates with ordinal suffix
+            $formattedstartTanggal = $this->formatWithOrdinal($startTanggal);
+            $formattedendTanggal = $this->formatWithOrdinal($endTanggal);
+
+            if ($startTanggal->format('F Y') === $endTanggal->format('F Y')) {
+                $formattedMonth = $startTanggal->translatedFormat('F');
+                $formattedYear = $startTanggal->translatedFormat('Y');
+
+                $data->formatted_tanggal_training = "{$formattedMonth} {$formattedstartTanggal} - {$formattedendTanggal} , {$formattedYear}";
+            } else {
+                // Different months
+                $formattedstartTanggal = $startTanggal->format('F j');
+                $formattedendTanggal = $endTanggal->format('F j ,Y');
+
+                $data->formatted_tanggal_training = "{$formattedstartTanggal} - {$formattedendTanggal}";
+            }
+        }
+        foreach ($limitTrainingfooter as $data) {
             $startTanggal = Carbon::parse($data->tanggal_mulai);
             $endTanggal = Carbon::parse($data->tanggal_selesai);
 
@@ -120,8 +164,7 @@ class WelcomeController extends Controller
             }
 
             $message = "
-            <p style='font-size: 30px;' class ='text-center mb-3'>Selamat! Sertifikat Anda telah berhasil ditemukan.</p>
-            <p style='font-size: 20px;' class ='text-start mb-3'>Berikut adalah detail sertifikat Anda :</p>
+
         <table class='table text-start' style='width:700px; font-weight: bold; color: #105233;'>
             <tr>
 
@@ -146,19 +189,18 @@ class WelcomeController extends Controller
                 <th>{$formattedTanggal}</th>
             </tr>
         </table>
-        <p class='text-center' style='font-size: 20px;' class ='text-start mt-3'>Terima kasih telah mengikuti pelatihan ini. Sertifikat ini menandakan bahwa Anda telah berhasil menyelesaikan pelatihan dengan baik. Kami berharap ilmu dan keterampilan yang didapatkan dapat bermanfaat di masa depan.</p>
     ";
             return redirect(url('/') . '#result')->with([
                 'status' => 'success',
                 'message' => $message,
-            ], compact('limitTraining'));
+            ], compact('limitTraining', 'limitTrainingfooter'));
 
         } else {
             // Sertifikat tidak ditemukan
             return redirect(url('/') . '#sertifikat')->with([
                 'status' => 'danger',
                 'message' => 'Sertifikat tidak ditemukan. Silakan cek kembali.',
-            ], compact('limitTraining'));
+            ], compact('limitTraining', 'limitTrainingfooter'));
         }
     }
 
