@@ -5,7 +5,10 @@ use App\Exports\SertifikatExport;
 use App\Models\Sertifikat;
 use App\Models\Training;
 use Carbon\Carbon;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 use Maatwebsite\Excel\Facades\Excel;
 use setasign\Fpdi\Fpdi;
 
@@ -99,19 +102,6 @@ class SertifikatController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nama_penerima' => 'required|string|max:255',
-            'id_training' => 'required',
-            'email' => 'required|email|unique:sertifikats,email',
-        ], [
-            'email.unique' => 'Email ini sudah terdaftar, silakan gunakan email lain.',
-        ]);
-
-        // Jika validasi berhasil, simpan data
-        Sertifikat::create([
-            'email' => $request->email,
-        ]);
-
         $sertifikat = Sertifikat::findOrFail($id);
         $sertifikat->nama_penerima = $request->nama_penerima;
         $sertifikat->id_training = $request->id_training;
@@ -343,4 +333,52 @@ class SertifikatController extends Controller
         return Excel::download(new SertifikatExport($data), 'sertifikat.xlsx');
     }
 
+    public function exportPDF(Request $request)
+    {
+        // Ambil parameter id_training dari request
+        $idTraining = $request->get('id_training');
+
+        // Ambil data sertifikat berdasarkan id_training yang difilter
+        $sertifikat = Sertifikat::with('training')
+            ->when($idTraining, function ($query) use ($idTraining) {
+                return $query->where('id_training', $idTraining);
+            })
+            ->get();
+
+        // Cek apakah ada sertifikat yang ditemukan
+        if ($sertifikat->isEmpty()) {
+            return redirect()->back()->with('error', 'Data sertifikat tidak ditemukan.');
+        }
+
+        // Ambil nama training dari sertifikat pertama yang difilter
+        $namaTraining = $sertifikat->first()->training ? $sertifikat->first()->training->nama_training : 'training_tidak_ditemukan';
+
+        // Siapkan data untuk dikirim ke view
+        $data = [
+            'sertifikat' => $sertifikat,
+        ];
+
+        // Load view untuk PDF
+        $pdfView = View::make('pdf.certificate', $data)->render();
+
+        // Inisialisasi DOMPDF
+        $options = new Options();
+        $options->set('defaultFont', 'Arial');
+        $dompdf = new Dompdf($options);
+
+        // Load HTML dari view ke DOMPDF
+        $dompdf->loadHtml($pdfView);
+
+        // (Optional) Set ukuran kertas dan orientasi
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render PDF
+        $dompdf->render();
+
+        // Ganti spasi pada nama training dengan underscore agar sesuai dengan format file
+        $namaFile = str_replace(' ', '_', $namaTraining) . '_peserta.pdf';
+
+        // Kirim PDF ke browser untuk didownload dengan nama file sesuai nama training
+        return $dompdf->stream($namaFile);
+    }
 }

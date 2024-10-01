@@ -131,12 +131,12 @@
                                     </div>
 
                                     {{-- FILTER BY TRAINING --}}
-                                    <div class="col-4">
+                                    <div class="col-2">
                                         <form method="GET" action="{{ route('sertifikat.index') }}">
                                             <div class="row">
                                                 <div class="col-md-5">
                                                     <select class="form-select placement-dropdown" name="id_training"
-                                                        style="margin-left: 115px; margin-top: 16px; width: 220px;"
+                                                        style="margin-left: 80px; margin-top: 16px; width: 220px;"
                                                         id="exampleSelectGender">
                                                         <option value=""
                                                             {{ is_null(request()->get('id_training')) ? 'selected' : '' }}>
@@ -149,10 +149,9 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
-                                                <div class="col-md-1" style="margin-left: 187px; margin-top: 16px;">
-                                                    <button type="submit"
-                                                        class="btn btn-info d-flex align-items-center"
-                                                        >
+                                                <div class="col-md-1">
+                                                    <button type="submit" style="margin-left: 230px; margin-top: 16px;"
+                                                        class="btn btn-info d-flex align-items-center">
                                                         <i class='bx bx-filter-alt' style="margin-right: 8px;"></i>
                                                         Filter
                                                     </button>
@@ -162,12 +161,21 @@
                                         </form>
                                     </div>
 
+                                    {{-- EXPORT TO PDF BUTTON --}}
+                                    <div class="col-2" style="margin-top: 16px; margin-left: 230px; width: 75px;">
+                                        <a href="{{ route('export.pdf', ['id_training' => request()->get('id_training')]) }}"
+                                            class="btn btn-danger" data-bs-toggle="tooltip" data-bs-offset="0,4"
+                                            data-bs-placement="top" data-bs-html="true" title="Export to PDF">
+                                            <i class='bx bxs-file-export'></i>
+                                        </a>
+                                    </div>
+
+
                                     {{-- EXPORT TO EXCEL BUTTON --}}
-                                    <div class="col-2" style="margin-top: 16px; margin-left: 100px; width: 75px;">
+                                    <div class="col-2" style="margin-top: 16px; margin-left: -10px; width: 75px;">
                                         <a href="{{ route('export.excel') }}" class="btn btn-success"
-                                            data-bs-toggle="tooltip"
-                                            data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
-                                            title="Export to Excel">
+                                            data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                            data-bs-html="true" title="Export to Excel">
                                             <i class='bx bxs-file-export'></i>
                                         </a>
                                     </div>
@@ -177,12 +185,13 @@
                                         <div class="mt-3">
                                             <!-- Button trigger modal -->
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#modalCenter">
+                                                style="margin-left: -10px;" data-bs-target="#modalCenter">
                                                 <i class='bx bx-plus-circle'></i> Add Data
                                             </button>
 
                                             <!-- Modal -->
-                                            <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+                                            <div class="modal fade" id="modalCenter" tabindex="-1"
+                                                aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered modal-lg"
                                                     role="document">
                                                     <div class="modal-content">

@@ -6,6 +6,10 @@ use App\Models\Training;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
+// indonesia
+Carbon::setLocale('id');
+
+
 class TrainingController extends Controller
 {
     // Fungsi untuk nge format tanggal dengan ordinal
@@ -42,14 +46,15 @@ class TrainingController extends Controller
             $formattedEndDate = $this->formatWithOrdinal($endDate);
 
             if ($startDate->format('F Y') === $endDate->format('F Y')) {
-                $formattedMonth = $startDate->translatedFormat('F');
+                $formattedMonth = $startDate->translatedFormat('F'); // Menggunakan translatedFormat untuk bahasa
                 $formattedYear = $startDate->translatedFormat('Y');
 
-                $data->formatted_tanggal = "{$formattedMonth} {$formattedStartDate} - {$formattedEndDate} , {$formattedYear}";
+                // Mengubah format tanggal menjadi bahasa Indonesia
+                $data->formatted_tanggal = "{$formattedMonth} {$formattedStartDate} - {$formattedEndDate}, {$formattedYear}";
             } else {
-                // Different months
-                $formattedStartDate = $startDate->format('F j');
-                $formattedEndDate = $endDate->format('F j ,Y');
+                // Bulan yang berbeda
+                $formattedStartDate = $startDate->translatedFormat('F j'); // Menggunakan translatedFormat untuk bahasa
+                $formattedEndDate = $endDate->translatedFormat('F j, Y');
 
                 $data->formatted_tanggal = "{$formattedStartDate} - {$formattedEndDate}";
             }
@@ -140,5 +145,5 @@ class TrainingController extends Controller
         return redirect()->route('training.index');
 
     }
-    
+
 }
