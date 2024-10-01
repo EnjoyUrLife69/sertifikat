@@ -102,7 +102,7 @@
     <table>
         <thead>
             <tr>
-                <th>ID</th>
+                <th>No</th>
                 <th>Nama Penerima</th>
                 <th>Email</th>
                 <th>Nama Pelatihan</th>
