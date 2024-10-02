@@ -7,6 +7,8 @@ use App\Models\Training;
 use Carbon\Carbon;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Writer\PngWriter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use Maatwebsite\Excel\Facades\Excel;
@@ -192,6 +194,15 @@ class SertifikatController extends Controller
             $startDate->year// Tahun
         );
 
+        // Membuat QR Code dengan URL untuk pengecekan sertifikat
+        $qrCode = new QrCode(url('/check-certificate?nomor_sertifikat=' . urlencode($nomorSertifikat)));
+        $qrCode->setSize(300); // Set ukuran QR Code
+        $writer = new PngWriter();
+        $qrCodePath = public_path("assets/qr_codes/{$sertifikat->id}.png");
+
+        // Menyimpan QR Code ke file
+        $writer->write($qrCode)->saveToFile($qrCodePath);
+
         // Path ke template PDF
         $templatePath = public_path('assets/img/sertifikat/template.pdf');
 
@@ -217,6 +228,8 @@ class SertifikatController extends Controller
         // Import halaman pertama dari template PDF
         $tplIdx = $pdf->importPage(1);
         $pdf->useTemplate($tplIdx);
+
+        $pdf->Image($qrCodePath, 30, 140, 50, 50); // Menyesuaikan posisi dan ukuran QR Code
 
         // Nama Penerima
         $pdf->SetFont('AlexBrush-Regular', '', 45);
@@ -249,81 +262,6 @@ class SertifikatController extends Controller
         return response($pdf->Output('S'), 200)
             ->header('Content-Type', 'application/pdf')
             ->header('Content-Disposition', "inline; filename=\"{$fileName}\"");
-    }
-
-    // Fungsi untuk mengecek sertifikat
-    public function checkCertificate(Request $request)
-    {
-        // Ambil input nomor sertifikat dari form
-        $nomorSertifikatInput = $request->input('nomor_sertifikat');
-
-        // Pecahkan input nomor sertifikat untuk mendapatkan bagian-bagian yang diperlukan
-        $parts = explode('/', str_replace('NO. ', '', $nomorSertifikatInput));
-
-        if (count($parts) !== 4) {
-            // Jika format tidak sesuai
-            return view('certificate-check', [
-                'status' => 'error',
-                'message' => 'Format nomor sertifikat tidak valid. Silakan cek kembali.',
-            ]);
-        }
-
-        $idNamaPenerima = intval($parts[0]); // Bagian ID Nama Penerima
-        $kodeTraining = $parts[1]; // Bagian Kode Training
-
-        // Cek di database apakah sertifikat dengan ID penerima dan kode training ada
-        $sertifikat = Sertifikat::with('training')->where('id', $idNamaPenerima)->first();
-        $training = Training::where('kode', $kodeTraining)->first();
-
-        if ($sertifikat && $training) {
-            $startDate = Carbon::parse($training->tanggal_mulai);
-            $endDate = Carbon::parse($training->tanggal_selesai);
-
-            // Format tanggal dengan suffix ordinal
-            $formattedStartDate = $this->formatWithOrdinal($startDate);
-            $formattedEndDate = $this->formatWithOrdinal($endDate);
-
-            if ($startDate->format('F Y') === $endDate->format('F Y')) {
-                $formattedMonth = $startDate->translatedFormat('F');
-                $formattedYear = $startDate->translatedFormat('Y');
-                $formattedTanggal = "{$formattedMonth} {$formattedStartDate} - {$formattedEndDate}, {$formattedYear}";
-            } else {
-                $formattedStartDate = $startDate->format('F j');
-                $formattedEndDate = $endDate->format('F j, Y');
-                $formattedTanggal = "{$formattedStartDate} - {$formattedEndDate}";
-            }
-
-            $message = "
-            <table style='width:700px;'>
-                <tr>
-                    <th>Nama Penerima</th>
-                    <th> : </th>
-                    <th>{$sertifikat->nama_penerima}</th>
-                </tr>
-                <tr>
-                    <th>Nama Training</th>
-                    <th> : </th>
-                    <th>{$training->nama_training}</th>
-                </tr>
-                <tr>
-                    <th>Tanggal</th>
-                    <th> : </th>
-                    <th>{$formattedTanggal}</th>
-                </tr>
-            </table>
-        ";
-            return view('layouts.user', [
-                'status' => 'success',
-                'message' => $message,
-            ]);
-        } else {
-            // Sertifikat tidak ditemukan
-            return view('layouts.user', [
-                'status' => 'error',
-                'message' => 'Sertifikat tidak ditemukan. Silakan cek kembali.',
-            ]);
-        }
-
     }
 
     public function exportExcel()
@@ -378,7 +316,7 @@ class SertifikatController extends Controller
         // Load HTML dari view ke DOMPDF
         $dompdf->loadHtml($pdfView);
 
-        // Ukuran kertas dan orientasi
+        // (Optional) Set ukuran kertas dan orientasi
         $dompdf->setPaper('A4', 'portrait');
 
         // Render PDF

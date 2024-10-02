@@ -77,8 +77,8 @@ class WelcomeController extends Controller
     }
     public function checkCertificate(Request $request)
     {
-        // Ambil input nomor sertifikat dari form
-        $nomorSertifikatInput = $request->input('nomor_sertifikat');
+        // Ambil input nomor sertifikat dari query atau form
+        $nomorSertifikatInput = $request->input('nomor_sertifikat') ?? $request->query('nomor_sertifikat');
 
         // Pecahkan input nomor sertifikat untuk mendapatkan bagian-bagian yang diperlukan
         $parts = explode('/', str_replace('NO. ', '', $nomorSertifikatInput));

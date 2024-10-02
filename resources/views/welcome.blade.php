@@ -79,6 +79,7 @@
                                 style="width:855px;">
                             <button class="btn btn-primary mt-4 w-100" type="submit">Cek</button>
                         </form>
+
                         <!-- Tempat untuk menampilkan hasil -->
                         <div class="mt-4">
                             @if (session('status') && session('message'))
