@@ -23,7 +23,7 @@ class Training extends Model
     // relasi ke tabel sertifikat
     public function sertifikat()
     {
-        return $this->hasMany(Sertifikat::class);
+        return $this->hasMany(Sertifikat::class, 'id_training', 'id');
     }
 
     //menghapus img

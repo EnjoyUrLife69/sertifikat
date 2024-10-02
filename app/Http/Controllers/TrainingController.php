@@ -9,7 +9,6 @@ use Illuminate\Support\Carbon;
 // indonesia
 Carbon::setLocale('id');
 
-
 class TrainingController extends Controller
 {
     // Fungsi untuk nge format tanggal dengan ordinal
@@ -18,11 +17,13 @@ class TrainingController extends Controller
         $day = $date->day;
 
         // Tentukan suffix
-        if ($day % 10 == 1 && $day != 11) {
+        if ($day % 100 >= 11 && $day % 100 <= 13) {
+            $suffix = 'th'; // pengecualian untuk hari ke 11, 12, dan 13
+        } elseif ($day % 10 == 1) {
             $suffix = 'st';
-        } elseif ($day % 10 == 2 && $day != 12) {
+        } elseif ($day % 10 == 2) {
             $suffix = 'nd';
-        } elseif ($day % 10 == 3 && $day != 13) {
+        } elseif ($day % 10 == 3) {
             $suffix = 'rd';
         } else {
             $suffix = 'th';
@@ -34,7 +35,9 @@ class TrainingController extends Controller
     public function index()
     {
         // Retrieve all trainings ordered by the created date
-        $training = Training::orderBy('created_at', 'desc')->get();
+        $training = Training::withCount('sertifikat')
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         // Add formatted date range to each training
         foreach ($training as $data) {

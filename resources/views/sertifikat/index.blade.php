@@ -301,7 +301,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
-                                                    <th>Nama Penerima</th>
+                                                    <th>Nama Peserta</th>
                                                     <th>Nama Pelatihan</th>
                                                     <th>Status Pelatihan</th>
                                                     <th>Actions</th>

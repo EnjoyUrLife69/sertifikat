@@ -378,7 +378,7 @@ class SertifikatController extends Controller
         // Load HTML dari view ke DOMPDF
         $dompdf->loadHtml($pdfView);
 
-        // (Optional) Set ukuran kertas dan orientasi
+        // Ukuran kertas dan orientasi
         $dompdf->setPaper('A4', 'portrait');
 
         // Render PDF

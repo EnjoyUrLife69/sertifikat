@@ -9,8 +9,9 @@
 
     <title>Dashboard</title>
     <meta name="description" content="" />
-    <link rel="icon" href="{{asset('assets/img/logo-bartech-no-text.png')}}" type="image/png">
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico"') }}' />
+    <link rel="icon" href="{{ asset('assets/img/logo-bartech-no-text.png') }}" type="image/png">
+    <link rel="icon" type="image/x-icon"
+        href="{{ asset('assets/img/favicon/favicon.ico"') }}' />
 
     {{-- Bootstrap 5 --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -40,8 +41,7 @@
     <!-- Datatables CSS -->
     <link
         href="https://cdn.datatables.net/v/bs5/dt-2.1.5/b-3.1.2/b-html5-3.1.2/r-3.0.3/sc-2.4.3/sb-1.8.0/datatables.min.css"
-        rel="stylesheet"
-    >
+        rel="stylesheet">
 
     {{-- aos --}}
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -273,6 +273,7 @@
                                                 <th>No</th>
                                                 <th>Nama Pelatihan</th>
                                                 <th>tanggal</th>
+                                                <th>Peserta</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -283,6 +284,7 @@
                                                     <td>{{ $no++ }}</td>
                                                     <td><b>{{ $data->nama_training }}</b></td>
                                                     <td>{{ $data->formatted_tanggal }}</td>
+                                                    <td>{{ $data->sertifikat_count }} Peserta</td>
                                                     <td>
                                                         {{-- SHOW DATA --}}
                                                         <a href="{{ route('training.show', $data->id) }}"
@@ -301,19 +303,23 @@
                                                         </a>
 
                                                         {{-- DELETE DATA --}}
-                                                        <form id="deleteForm{{ $data->id }}"
-                                                            action="{{ route('training.destroy', $data->id) }}"
-                                                            method="POST" style="display:inline;">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="button" class="btn btn-sm btn-danger"
-                                                                id="deleteButton{{ $data->id }}"
-                                                                data-bs-toggle="tooltip" data-bs-offset="0,4"
-                                                                data-bs-placement="top" data-bs-html="true"
-                                                                title="<span>Delete</span>">
-                                                                <i class='bx bx-trash'></i>
-                                                            </button>
-                                                        </form>
+                                                        @if ($data->sertifikat_count == 0)
+                                                            <form id="deleteForm{{ $data->id }}"
+                                                                action="{{ route('training.destroy', $data->id) }}"
+                                                                method="POST" style="display:inline;">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="button" class="btn btn-sm btn-danger"
+                                                                    id="deleteButton{{ $data->id }}"
+                                                                    data-bs-toggle="tooltip" data-bs-offset="0,4"
+                                                                    data-bs-placement="top" data-bs-html="true"
+                                                                    title="<span>Delete</span>">
+                                                                    <i class='bx bx-trash'></i>
+                                                                </button>
+                                                            </form>
+                                                        @else
+                                                            &nbsp;
+                                                        @endif
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -338,64 +344,64 @@
 
 
     </div>
-    
-{{-- Script - Script --}}
-<footer>
-    <!-- Datatables JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-    <script
-        src="https://cdn.datatables.net/v/bs5/dt-2.1.5/b-3.1.2/b-html5-3.1.2/r-3.0.3/sc-2.4.3/sb-1.8.0/datatables.min.js">
-    </script>
-    <script>
-        let table = new DataTable('#myTable');
-    </script>
 
-    <!-- / CKEditor 5 -->
-    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
-    <script>
-        ClassicEditor
-            .create(document.querySelector('#basic-icon-default-message'))
-            .catch(error => {
-                console.error(error);
+    {{-- Script - Script --}}
+    <footer>
+        <!-- Datatables JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+        <script
+            src="https://cdn.datatables.net/v/bs5/dt-2.1.5/b-3.1.2/b-html5-3.1.2/r-3.0.3/sc-2.4.3/sb-1.8.0/datatables.min.js">
+        </script>
+        <script>
+            let table = new DataTable('#myTable');
+        </script>
+
+        <!-- / CKEditor 5 -->
+        <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
+        <script>
+            ClassicEditor
+                .create(document.querySelector('#basic-icon-default-message'))
+                .catch(error => {
+                    console.error(error);
+                });
+        </script>
+
+        <!-- Modal -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                @if ($errors->any())
+                    var myModal = new bootstrap.Modal(document.getElementById('modalCenter'));
+                    myModal.show();
+                @endif
             });
-    </script>
+        </script>
 
-    <!-- Modal -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            @if ($errors->any())
-                var myModal = new bootstrap.Modal(document.getElementById('modalCenter'));
-                myModal.show();
-            @endif
-        });
-    </script>
+        <!-- Core JS -->
+        <!-- build:js assets/vendor/js/core.js -->
+        <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
+        <script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>
+        <script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
+        <script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
+        <script src="{{ asset('assets/vendor/js/menu.js') }}"></script>
+        @include('sweetalert::alert')
+        <!-- endbuild -->
 
-    <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
-    <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>
-    <script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
-    <script src="{{ asset('assets/vendor/js/menu.js') }}"></script>
-    @include('sweetalert::alert')
-    <!-- endbuild -->
+        <!-- Main JS -->
+        <script src="{{ asset('assets/js/main.js') }}"></script>
 
-    <!-- Main JS -->
-    <script src="{{ asset('assets/js/main.js') }}"></script>
+        <!-- Toast SweetAlert2 -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- Toast SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <!-- AOS -->
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <script>
+            AOS.init();
+        </script>
 
-    <!-- AOS -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init();
-    </script>
-
-    <!-- Place this tag in your head or just before your close body tag. -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-</footer>
+        <!-- Place this tag in your head or just before your close body tag. -->
+        <script async defer src="https://buttons.github.io/buttons.js"></script>
+    </footer>
 
 </body>
 
