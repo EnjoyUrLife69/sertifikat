@@ -3,6 +3,7 @@
 @section('content')
     <!-- Carousel Start -->
     <div class="header-carousel owl-carousel" id="carosel">
+        {{-- slide 1 --}}
         <div class="header-carousel-item">
             <div class="header-carousel-item-img-1">
                 <img src="{{ asset('User/img/carousel-1.jpg') }}" class="img-fluid w-100" alt="Image">
@@ -19,6 +20,8 @@
             </div>
 
         </div>
+
+        {{-- slide 2 --}}
         <div class="header-carousel-item mx-auto">
             <div class="header-carousel-item-img-2">
                 <img src="{{ asset('User/img/carousel-2.jpg') }}" class="img-fluid w-100" alt="Image">
@@ -29,12 +32,13 @@
                         Depanmu</h1>
                     <p class="mb-5 fs-5">Kami menawarkan pelatihan berkualitas dengan sertifikasi resmi yang diakui.
                         Persiapkan diri kamu untuk tantangan dunia kerja dengan keahlian yang lebih baik.</p>
-                    {{-- <a class="btn btn-primary rounded-pill py-3 px-5 mb-4 me-4" href="#">Daftar Sekarang</a>
-        <a class="btn btn-dark rounded-pill py-3 px-5 mb-4" href="#">Pelajari Lebih Lanjut</a> --}}
+                    {{-- <a class="btn btn-primary rounded-pill py-3 px-5 mb-4 me-4" href="#">Daftar Sekarang</a> --}}
+                    {{-- <a class="btn btn-dark rounded-pill py-3 px-5 mb-4" href="#">Pelajari Lebih Lanjut</a> --}}
                 </div>
             </div>
-
         </div>
+
+        {{-- slide 3 --}}
         <div class="header-carousel-item">
             <div class="header-carousel-item-img-3">
                 <img src="{{ asset('User/img/carousel-3.jpg') }}" class="img-fluid w-100" alt="Image">
@@ -45,8 +49,8 @@
                         Profesional</h1>
                     <p class="mb-5 fs-5">Dapatkan pelatihan terbaik yang akan membekalimu dengan sertifikat resmi untuk
                         menunjang karirmu. Kami hadir untuk memastikan setiap langkah suksesmu.</p>
-                    {{-- <a class="btn btn-primary rounded-pill py-3 px-5 mb-4 me-4" href="#">Daftar Sekarang</a>
-    <a class="btn btn-dark rounded-pill py-3 px-5 mb-4" href="#">Pelajari Lebih Lanjut</a> --}}
+                    {{-- <a class="btn btn-primary rounded-pill py-3 px-5 mb-4 me-4" href="#">Daftar Sekarang</a> --}}
+                    {{-- <a class="btn btn-dark rounded-pill py-3 px-5 mb-4" href="#">Pelajari Lebih Lanjut</a> --}}
                 </div>
             </div>
         </div>
@@ -243,7 +247,4 @@
         </div>
     </div>
     <!-- About End -->
-    </div>
-    </div>
-    <!-- Cek Sertifikat End -->
 @endsection

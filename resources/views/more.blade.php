@@ -1,7 +1,6 @@
 @extends('layouts.user')
 
 @section('content')
-
     <body>
         <!-- Header Start -->
         <div class="container-fluid bg-breadcrumb">

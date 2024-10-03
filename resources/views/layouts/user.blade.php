@@ -59,7 +59,6 @@
     </head>
 
     <body>
-
         <!-- Spinner Start -->
         <div id="spinner"
             class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -70,17 +69,6 @@
         <!-- Spinner End -->
 
         @include('frontend/navbar')
-
-
-
-        <!-- Modal Search Start -->
-
-
-        <!-- Carousel Start -->
-
-        <!-- About End -->
-
-
 
         <!-- Project Start -->
         {{-- <div class="container-fluid project">
@@ -465,12 +453,6 @@
         @include('frontend/footer')
 
 
-        <!-- Back to Top -->
-
-
-
-
-
         <!-- JavaScript Libraries -->
         <script>
             document.getElementById('cek').addEventListener('click', function() {
@@ -510,7 +492,6 @@
         <script src="{{ asset('User/lib/owlcarousel/owl.carousel.min.js') }}"></script>
         <script src="{{ asset('User/lib/lightbox/js/lightbox.min.js') }}"></script>
 
-
         <script src="{{ asset('User/js/main.js') }}"></script>
         <script>
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -528,7 +509,6 @@
                 });
             });
         </script>
-
 
         <script>
             $(document).ready(function() {

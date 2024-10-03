@@ -1,102 +1,156 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.dashboard')
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-    <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
-    <meta name="description" content="" />
-    <link rel="icon" href="assets/img/logo-bartech-no-text.png" type="image/png">
+@section('content')
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <div class="row">
+            <div class="col-lg-12 mb-4 order-0">
+                <div class="card" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="0">
+                    <div class="d-flex align-items-end row">
+                        <div class="col-sm-7">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">Selamat Datang, <b>{{ Auth::user()->name }}!</b>
+                                </h5>
+                                <p class="mb-4">
+                                    Anda telah mengelola <span class="fw-bold">{{ $total_sertifikat }}
+                                        sertifikat</span> minggu ini. Terus tingkatkan performa Anda dan cek
+                                    statistik terbaru di dashboard.
+                                </p>
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-        rel="stylesheet" />
+                            </div>
 
-    <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/boxicons.css') }}" />
-
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/vendor/css/core.css') }} " class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/css/theme-default.css') }}"
-        class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
-
-    <!-- Vendors CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}" />
-
-    <!-- Helpers -->
-    <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
-
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="{{ asset('assets/js/config.js') }}"></script>
-
-    {{-- DATA AOS --}}
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-</head>
-
-<body>
-
-    <main>
-        <!-- Layout wrapper -->
-        <div class="layout-wrapper layout-content-navbar">
-            @if (session('error'))
-                <div class="alert alert-danger">
-                    {{ session('error') }}
+                        </div>
+                        <div class="col-sm-5 text-center text-sm-left">
+                            <div class="card-body pb-0 px-0 px-md-4">
+                                <img src="{{ asset('assets/img/illustrations/man-with-laptop-light.png') }}" height="140"
+                                    alt="View Badge User" data-app-dark-img="illustrations/man-with-laptop-dark.png"
+                                    data-app-light-img="illustrations/man-with-laptop-light.png" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            @endif
-
-            <div class="layout-container">
-
-                {{-- SIDEBAR --}}
-                @include('backend.sidebar')
-
-                {{-- CONTENT --}}
-                @include('backend.content')
-
-
             </div>
 
+            <!-- Order Statistics -->
+            <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
+                <div class="card h-100" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="300">
+                    <div class="card-header d-flex align-items-center justify-content-between pb-0">
+                        <div class="card-title mb-0">
+                            <h5 class="m-0 me-2">Statistics</h5>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn p-0" type="button" id="orederStatistics" data-bs-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="bx bx-dots-vertical-rounded"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics">
+                                <a class="dropdown-item" href="{{ route('training.index') }}">View More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="d-flex flex-column align-items-center gap-1">
+                                <h2 class="mb-2"> {{ $total_pelatihan }} </h2>
+                                <span>Total Jumlah <br> kelas Pelatihan</span>
+                            </div>
+                        </div>
+                        <ul class="p-0 m-0">
+                            @foreach ($limitTraining as $data)
+                                <li class="d-flex mb-4 pb-1">
+                                    <div class="avatar flex-shrink-0 me-3">
+                                        <span class="avatar-initial rounded bg-label-primary"><i
+                                                class='bx bxs-category'></i></span>
+                                    </div>
+                                    <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                        <div class="me-2">
+                                            <h6 class="mb-0">{{ $data->nama_training }}</h6>
+                                        </div>
+                                        {{-- <div class="user-progress">
+                                                <small class="fw-semibold">90.5k</small>
+                                            </div> --}}
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!--/ Order Statistics -->
+            <div class="col">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="card" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="700">
+                            <div class="card-body d-flex justify-content-between align-items-start">
+                                <div>
+                                    <span class="fw-semibold d-block mb-1">Total Jumlah peserta Pelatihan</span><br>
+                                    <h3 style="margin-left: 25px;" class="card-title mb-2">
+                                        <b>{{ $total_sertifikat }}</b> &nbsp; <b style="font-size: 15px">Peserta</b>
+                                    </h3><br>
+                                    <small class="text-body fw-semibold"><i class='bx bxs-user'></i>&nbsp;
+                                        Peserta</small>
+                                </div>
+                                <div class="dropdown">
+                                    <button class="btn p-0" type="button" id="cardOpt3" data-bs-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt3">
+                                        <a class="dropdown-item" href="{{ route('sertifikat.index') }}">View
+                                            More</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="card" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="900">
+                            <div class="card-body">
+                                <span class="fw-semibold d-block mb-1">Total peserta <b style="color: blue">Terdaftar</b>
+                                    Pelatihan</span><br>
+                                <h3 style="margin-left: 25px;" class="card-title mb-2"><b>{{ $total_terdaftar }}</b>
+                                    &nbsp; <b style="font-size: 15px">Peserta</b></h3><br>
+                                <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i>
+                                    Sertifikat tidak tersedia</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="card" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="1100">
+                            <div class="card-body">
+                                <span class="fw-semibold d-block mb-1">Total peserta <b style="color: green">Selesai</b>
+                                    Pelatihan</span><br>
+                                <h3 style="margin-left: 25px;" class="card-title mb-2"><b>{{ $total_selesai }}</b>
+                                    &nbsp; <b style="font-size: 15px">Peserta</b></h3><br>
+                                <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i>
+                                    Sertifikat tersedia</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mb-2 mt-4">
+                    <div class="card" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="500">
+                        <div class="card-body" style="height: 220px">
+                            <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
+                                <div style="margin-top : 5%; margin-left : 5%"
+                                    class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
+                                    <div class="card-title">
+                                        <h5 class="text-nowrap mb-2">Profile Report</h5>
+                                        <span class="badge bg-label-warning rounded-pill">Year 2021</span>
+                                    </div>
+                                    <div class="mt-sm-auto">
+                                        <small class="text-success text-nowrap fw-semibold"><i
+                                                class="bx bx-chevron-up"></i> 68.2%</small>
+                                        <h3 class="mb-0">$84,686k</h3>
+                                    </div>
+                                </div>
+                                <div style="margin-top : 7%;" id="profileReportChart"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- / Layout wrapper -->
-    </main>
-
-    {{-- Script - Script --}}
-    <footer>
-        <!-- Core JS -->
-        <!-- build:js assets/vendor/js/core.js -->
-        <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
-        <script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>
-        <script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
-        <script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
-        <script src="{{ asset('assets/vendor/js/menu.js') }}"></script>
-        <!-- endbuild -->
-
-        <!-- Vendors JS -->
-        <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
-
-        <!-- Main JS -->
-        <script src="{{ asset('assets/js/main.js') }}"></script>
-
-        <!-- Page JS -->
-        <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
-
-        <!-- DATA AOS -->
-        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-        <script>
-            AOS.init();
-        </script>
-
-
-        <!-- Place this tag in your head or just before your close body tag. -->
-        <script async defer src="https://buttons.github.io/buttons.js"></script>
-    </footer>
-
-</body>
-
-</html>
+    </div>
+@endsection
