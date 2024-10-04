@@ -14,12 +14,12 @@
                 </div>
 
                 {{-- FILTER BY TRAINING --}}
-                <div class="col-2">
+                <div class="col-4">
                     <form method="GET" action="{{ route('sertifikat.index') }}">
-                        <div class="row">
+                        <div class="row" style="margin-left: 137px;">
                             <div class="col-md-5">
                                 <select class="form-select placement-dropdown" name="id_training"
-                                    style="margin-left: 80px; margin-top: 16px; width: 220px;" id="exampleSelectGender">
+                                    style="margin-top: 16px; width: 220px; margin-left: -60px;" id="exampleSelectGender">
                                     <option value="" {{ is_null(request()->get('id_training')) ? 'selected' : '' }}>
                                         Tampilkan Semua Data</option>
                                     @foreach ($training as $data)
@@ -31,7 +31,7 @@
                                 </select>
                             </div>
                             <div class="col-md-1">
-                                <button type="submit" style="margin-left: 230px; margin-top: 16px;"
+                                <button type="submit" style=" margin-top: 16px; margin-left: 70px;"
                                     class="btn btn-info d-flex align-items-center">
                                     <i class='bx bx-filter-alt' style="margin-right: 8px;"></i>
                                     Filter
@@ -41,22 +41,30 @@
                     </form>
                 </div>
 
-                {{-- EXPORT TO PDF BUTTON --}}
-                <div class="col-2" style="margin-top: 16px; margin-left: 230px; width: 75px;">
-                    <a href="{{ route('export.pdf', ['id_training' => request()->get('id_training')]) }}"
-                        class="btn btn-danger" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
-                        data-bs-html="true" title="Export to PDF">
-                        <i class='bx bxs-file-pdf'></i>
-                    </a>
-                </div>
-
-                {{-- EXPORT TO EXCEL BUTTON --}}
-                <div class="col-2" style="margin-top: 16px; margin-left: -10px; width: 75px;">
-                    <a href="{{ route('export.excel', ['id_training' => request()->get('id_training')]) }}"
-                        class="btn btn-success" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
-                        data-bs-html="true" title="Export to Excel">
-                        <i class='bx bxs-file-export'></i>
-                    </a>
+                {{-- EXPORT BUTTON --}}
+                <div class="col-2">
+                    <div class="dropdown" style="margin-top: 16px; margin-left: 47px;">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class='bx bx-export'></i> Export
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            {{-- EXPORT TO PDF BUTTON --}}
+                            <li>
+                                <a class="dropdown-item"
+                                    href="{{ route('export.pdf', ['id_training' => request()->get('id_training')]) }}">
+                                    <i class='bx bxs-file-pdf'></i> PDF
+                                </a>
+                            </li>
+                            {{-- EXPORT TO EXCEL BUTTON --}}
+                            <li>
+                                <a class="dropdown-item"
+                                    href="{{ route('export.excel', ['id_training' => request()->get('id_training')]) }}">
+                                    <i class='bx bxs-file-export'></i> Excel
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
                 {{-- CREATE DATA --}}
