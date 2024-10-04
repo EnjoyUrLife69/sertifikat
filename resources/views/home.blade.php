@@ -287,7 +287,17 @@
                                 }).join('\n'); // Gabungkan menjadi satu string dengan newline
                             }
                         },
-                        displayColors: false // Menghilangkan warna kotak di sebelah tooltip
+                        displayColors: false, // Menghilangkan warna kotak di sebelah tooltip
+                        backgroundColor: 'rgba(0, 0, 0, 0.7)', // Sesuaikan warna latar belakang tooltip
+                        titleFont: {
+                            size: 12,
+                        },
+                        bodyFont: {
+                            size: 14,
+                        },
+                        bodySpacing: 6, // Jarak antar teks dalam tooltip
+                        cornerRadius: 4, // Ujung melengkung pada tooltip
+                        padding: 10, // Tambahkan padding di dalam tooltip
                     }
                 }
             }
