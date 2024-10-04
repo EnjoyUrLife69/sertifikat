@@ -55,6 +55,13 @@
         .swal2-container {
             z-index: 9999 !important;
         }
+
+        .chartjs-tooltip {
+            z-index: 9999 !important;
+            /* Set z-index tinggi untuk tooltip */
+            pointer-events: none;
+            /* Mencegah interaksi dengan tooltip */
+        }
     </style>
 
     <!-- SweetAlert2 -->
@@ -97,6 +104,7 @@
         integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->

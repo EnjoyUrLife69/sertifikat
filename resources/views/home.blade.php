@@ -153,49 +153,84 @@
 
     <script>
         // Doughnut Chart - myChart1
+        // Data dari backend
+        const trainingData = @json($trainingWithParticipants);
+
+        // Ambil nama pelatihan dan jumlah peserta
+        const doughnutTrainingNames = trainingData.map(training => training.nama_training);
+        const doughnutParticipantCounts = trainingData.map(training => training.jumlah_peserta);
+
+        // Doughnut Chart - myChart1
         const ctx1 = document.getElementById('myChart1').getContext('2d');
         new Chart(ctx1, {
             type: 'doughnut',
             data: {
+                labels: doughnutTrainingNames, // Nama pelatihan
                 datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
+                    data: doughnutParticipantCounts, // Jumlah peserta per pelatihan
                     borderWidth: 1,
-                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'],
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF',
+                        '#FF9F40'
+                    ], // Warna-warna
                 }]
             },
             options: {
                 responsive: false, // Disable responsiveness
                 plugins: {
                     legend: {
-                        display: true,
+                        display: false, // Sembunyikan label di legend
+                    },
+                    tooltip: {
+                        callbacks: {
+                            // Menampilkan custom tooltip tanpa label dataset
+                            label: function(context) {
+                                const namaTraining = context.label; // Nama pelatihan
+                                const jumlahPeserta = context.raw; // Jumlah peserta
+
+                                // Format tooltip: Nama pelatihan dan jumlah partisipasi
+                                return `Jumlah partisipasi: ${jumlahPeserta} orang`;
+                            }
+                        },
+                        displayColors: false, // Menghilangkan warna kotak di sebelah tooltip
+                        backgroundColor: 'rgba(0, 0, 0, 0.7)', // Sesuaikan warna latar belakang tooltip
+                        titleFont: {
+                            size: 12,
+                        },
+                        bodyFont: {
+                            size: 14,
+                        },
+                        bodySpacing: 6, // Jarak antar teks dalam tooltip
+                        cornerRadius: 4, // Ujung melengkung pada tooltip
+                        padding: 10, // Tambahkan padding di dalam tooltip
                     }
+
                 }
             }
         });
 
-        // Line Chart - myChart2
-        const ctx2 = document.getElementById('myChart2').getContext('2d');
 
-        const trainingData = @json($trainings); // Data jumlah pelatihan per bulan
-        const trainingDetails = @json($trainingDetails); // Detail pelatihan per bulan (nama dan tanggal mulai)
+        // Bar Chart - myChart2
+        // Data dari backend untuk chart batang
+        const barTrainingData = @json($trainings); // Data jumlah pelatihan per bulan
+        const barTrainingDetails = @json($trainingDetails); // Detail pelatihan per bulan (nama dan tanggal mulai)
 
         // Data labels bulan dan jumlah pelatihan
-        const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
-        const dataCounts = new Array(12).fill(0);
+        const barLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+        const barDataCounts = new Array(12).fill(0);
 
         // Hitung jumlah pelatihan per bulan
-        trainingData.forEach(training => {
-            dataCounts[training.month - 1] = training.total;
+        barTrainingData.forEach(training => {
+            barDataCounts[training.month - 1] = training.total;
         });
 
+        const ctx2 = document.getElementById('myChart2').getContext('2d');
         new Chart(ctx2, {
             type: 'bar', // Gunakan tipe bar
             data: {
-                labels: labels,
+                labels: barLabels,
                 datasets: [{
                     label: 'Jumlah Pelatihan',
-                    data: dataCounts, // Data jumlah pelatihan
+                    data: barDataCounts, // Data jumlah pelatihan
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 1
@@ -227,7 +262,7 @@
                         callbacks: {
                             label: function(context) {
                                 const monthIndex = context.dataIndex + 1; // Bulan (dimulai dari 1)
-                                const details = trainingDetails[monthIndex] || [];
+                                const details = barTrainingDetails[monthIndex] || [];
 
                                 if (details.length === 0) {
                                     return 'Tidak ada pelatihan';
@@ -239,9 +274,9 @@
                             },
                             afterLabel: function(context) {
                                 const monthIndex = context.dataIndex + 1;
-                                const details = trainingDetails[monthIndex] || [];
+                                const details = barTrainingDetails[monthIndex] || [];
 
-                                // Tampilkan nama pelatihan dan tanggal mulai sebagai list
+                                // Tampilkan nama pelatihan dan tanggal mulai sebagai list ke bawah
                                 return details.map(detail => {
                                     const tanggalMulai = new Date(detail.tanggal_mulai)
                                         .toLocaleDateString('id-ID', {
@@ -254,7 +289,6 @@
                         },
                         displayColors: false // Menghilangkan warna kotak di sebelah tooltip
                     }
-
                 }
             }
         });
