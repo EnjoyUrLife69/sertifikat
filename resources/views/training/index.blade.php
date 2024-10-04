@@ -9,8 +9,32 @@
         <!-- Bordered Table -->
         <div class="card">
             <div class="row" style="margin-top: 10px;">
-                <div class="col-10">
+                <div class="col-8">
                     <h5 class="card-header">Data Training Tables</h5>
+                </div>
+
+                {{-- EXPORT BUTTON --}}
+                <div class="col-2">
+                    <div class="dropdown" style="margin-top: 16px; margin-left: 47px;">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class='bx bx-export'></i> Export
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            {{-- EXPORT TO PDF BUTTON --}}
+                            {{-- <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class='bx bxs-file-pdf'></i> PDF
+                                </a>
+                            </li> --}}
+                            {{-- EXPORT TO EXCEL BUTTON --}}
+                            <li>
+                                <a class="dropdown-item" href="{{ route('export.training') }}">
+                                    <i class='bx bxs-file-export'></i> Excel
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
                 {{-- CREATE DATA --}}

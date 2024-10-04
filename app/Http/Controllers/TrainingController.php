@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\TrainingExport;
 use App\Models\Training;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
 
 // indonesia
 Carbon::setLocale('id');
@@ -147,6 +149,11 @@ class TrainingController extends Controller
         toast('Data has been Deleted!', 'success')->position('top-end');
         return redirect()->route('training.index');
 
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new TrainingExport(), 'training.xlsx'); // Ekspor data ke file Excel
     }
 
 }

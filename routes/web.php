@@ -2,10 +2,10 @@
 
 // BACKEND
 use App\Http\Controllers\PelatihanController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SertifikatController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\RoleController;
 
 // FRONTEND
 use App\Http\Controllers\WelcomeController;
@@ -27,6 +27,8 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
 
     Route::get('/export-excel', [SertifikatController::class, 'exportExcel'])->name('export.excel');
     Route::get('/export-pdf', [SertifikatController::class, 'exportPDF'])->name('export.pdf');
+
+    Route::get('/export-training', [TrainingController::class, 'exportExcel'])->name('export.training');
 
     // USER
     Route::get('/user', function (Request $request) {
