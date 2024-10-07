@@ -187,7 +187,9 @@
                             @php $no=1; @endphp
                             @foreach ($training as $data)
                                 <tr>
-                                    <td>{{ $no++ }}</td>
+                                    <td>
+                                        <center>{{ $no++ }}</center>
+                                    </td>
                                     <td><b>{{ $data->nama_training }}</b></td>
                                     <td>{{ $data->formatted_tanggal }}</td>
                                     <td>{{ $data->sertifikat_count }} Peserta</td>

@@ -113,7 +113,8 @@ class SertifikatController extends Controller
         $sertifikat->save();
 
         toast('Data has been Updated!', 'success')->position('top-end');
-        return redirect()->route('sertifikat.index')->with('success', 'Data berhasil ditambahkan');
+        return redirect()->route('sertifikat.index', ['id_training' => $request->id_training])
+            ->with('success', 'Data berhasil diupdate');
 
     }
 

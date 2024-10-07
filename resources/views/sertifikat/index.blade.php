@@ -186,7 +186,7 @@
                             @php $no=1; @endphp
                             @foreach ($sertifikat as $data)
                                 <tr>
-                                    <td>{{ $no++ }}</td>
+                                    <td> <center> {{ $no++ }} </center></td>
                                     <td><b>{{ $data->nama_penerima }}</b></td>
                                     <td><b>{{ Str::limit($data->training->nama_training, 26) }}</b>
                                     </td>

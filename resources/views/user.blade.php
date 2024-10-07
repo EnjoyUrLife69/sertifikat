@@ -101,7 +101,7 @@
                         <table class="table table-striped" id="myTable">
                             <thead>
                                 <tr>
-                                    <th>No</th>
+                                    <th><center>No</center></th>
                                     <th>Username</th>
                                     <th>Email</th>
                                     <th>Role</th>
@@ -112,7 +112,7 @@
                                 @php $no=1; @endphp
                                 @foreach ($user as $data)
                                     <tr>
-                                        <td>{{ $no++ }}</td>
+                                        <td><center>{{ $no++ }}</center></td>
                                         <td><b>{{ $data->name }}</b></td>
                                         <td>{{ $data->email }}</td>
                                         <td>{{ $data->roles->nama_role }}
