@@ -37,13 +37,19 @@ class TrainingController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        // Upload image
+        // Upload image only if exists
         $cover = $request->file('cover');
-        $coverPath = $cover->storeAs('public/training', $cover->hashName());
+        if ($cover) {
+            // Define path where image will be saved in public/images/training
+            $coverName = time() . '_' . $cover->getClientOriginalName(); // Use unique name
+            $cover->move(public_path('images/training'), $coverName); // Save image to public/images/training
+        } else {
+            $coverName = null; // Atau bisa memberikan default cover jika diperlukan
+        }
 
         // Create training record
         $training = Training::create([
-            'cover' => $cover->hashName(),
+            'cover' => $coverName, // Save the image filename
             'nama_training' => $request->nama_training,
             'tanggal_mulai' => $request->tanggal_mulai,
             'tanggal_selesai' => $request->tanggal_selesai,
@@ -92,15 +98,19 @@ class TrainingController extends Controller
         if ($request->hasFile('cover')) {
             // Delete the old image if exists
             if ($training->cover) {
-                Storage::delete('public/training/' . $training->cover);
+                $oldCoverPath = public_path('images/training/' . $training->cover);
+                if (file_exists($oldCoverPath)) {
+                    unlink($oldCoverPath); // Delete the old image from public/images/training
+                }
             }
 
             // Upload the new image
             $cover = $request->file('cover');
-            $cover->storeAs('public/training', $cover->hashName());
+            $coverName = time() . '_' . $cover->getClientOriginalName(); // Create a unique name for the new image
+            $cover->move(public_path('images/training'), $coverName); // Move the image to public/images/training
 
             // Update cover in the database
-            $training->cover = $cover->hashName();
+            $training->cover = $coverName;
         }
 
         // Update other training details
