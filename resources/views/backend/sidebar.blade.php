@@ -31,18 +31,18 @@
             class="menu-item {{ request()->routeIs('training.index') || request()->routeIs('sertifikat.index') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class='menu-icon tf-icons bx bxs-data'></i>
-                <div data-i18n="Account Settings">Tabel Data</div>
+                <div data-i18n="Account Settings">Data Pelatihan</div>
             </a>
             <ul
                 class="menu-sub {{ request()->routeIs('training.index') || request()->routeIs('sertifikat.index') ? 'show' : '' }}">
                 <li class="menu-item {{ request()->routeIs('training.index') ? 'active' : '' }}">
                     <a href="{{ route('training.index') }}" class="menu-link">
-                        <div data-i18n="Account">Data Pelatihan</div>
+                        <div data-i18n="Account">Daftar Pelatihan</div>
                     </a>
                 </li>
                 <li class="menu-item {{ request()->routeIs('sertifikat.index') ? 'active' : '' }}">
                     <a href="{{ route('sertifikat.index') }}" class="menu-link">
-                        <div data-i18n="Account">Peserta Pelatihan</div>
+                        <div data-i18n="Account">Daftar Peserta</div>
                     </a>
                 </li>
             </ul>
