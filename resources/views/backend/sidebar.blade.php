@@ -24,9 +24,6 @@
                 <div data-i18n="Analytics">Dashboard</div>
             </a>
         </li>
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Data Master</span>
-        </li>
         <li
             class="menu-item {{ request()->routeIs('training.index') || request()->routeIs('sertifikat.index') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">

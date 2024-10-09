@@ -3,7 +3,6 @@
 @section('content')
     <!-- Carousel Start -->
     <div class="header-carousel owl-carousel" id="carosel">
-        {{-- slide 1 --}}
         <div class="header-carousel-item">
             <div class="header-carousel-item-img-1">
                 <img src="{{ asset('User/img/carousel-1.jpg') }}" class="img-fluid w-100" alt="Image">
@@ -20,8 +19,6 @@
             </div>
 
         </div>
-
-        {{-- slide 2 --}}
         <div class="header-carousel-item mx-auto">
             <div class="header-carousel-item-img-2">
                 <img src="{{ asset('User/img/carousel-2.jpg') }}" class="img-fluid w-100" alt="Image">
@@ -32,13 +29,12 @@
                         Depanmu</h1>
                     <p class="mb-5 fs-5">Kami menawarkan pelatihan berkualitas dengan sertifikasi resmi yang diakui.
                         Persiapkan diri kamu untuk tantangan dunia kerja dengan keahlian yang lebih baik.</p>
-                    {{-- <a class="btn btn-primary rounded-pill py-3 px-5 mb-4 me-4" href="#">Daftar Sekarang</a> --}}
-                    {{-- <a class="btn btn-dark rounded-pill py-3 px-5 mb-4" href="#">Pelajari Lebih Lanjut</a> --}}
+                    {{-- <a class="btn btn-primary rounded-pill py-3 px-5 mb-4 me-4" href="#">Daftar Sekarang</a>
+        <a class="btn btn-dark rounded-pill py-3 px-5 mb-4" href="#">Pelajari Lebih Lanjut</a> --}}
                 </div>
             </div>
-        </div>
 
-        {{-- slide 3 --}}
+        </div>
         <div class="header-carousel-item">
             <div class="header-carousel-item-img-3">
                 <img src="{{ asset('User/img/carousel-3.jpg') }}" class="img-fluid w-100" alt="Image">
@@ -49,8 +45,8 @@
                         Profesional</h1>
                     <p class="mb-5 fs-5">Dapatkan pelatihan terbaik yang akan membekalimu dengan sertifikat resmi untuk
                         menunjang karirmu. Kami hadir untuk memastikan setiap langkah suksesmu.</p>
-                    {{-- <a class="btn btn-primary rounded-pill py-3 px-5 mb-4 me-4" href="#">Daftar Sekarang</a> --}}
-                    {{-- <a class="btn btn-dark rounded-pill py-3 px-5 mb-4" href="#">Pelajari Lebih Lanjut</a> --}}
+                    {{-- <a class="btn btn-primary rounded-pill py-3 px-5 mb-4 me-4" href="#">Daftar Sekarang</a>
+    <a class="btn btn-dark rounded-pill py-3 px-5 mb-4" href="#">Pelajari Lebih Lanjut</a> --}}
                 </div>
             </div>
         </div>
@@ -83,9 +79,8 @@
                                 style="width:855px;">
                             <button class="btn btn-primary mt-4 w-100" type="submit">Cek</button>
                         </form>
-
                         <!-- Tempat untuk menampilkan hasil -->
-                        <div class="mt-4">
+                        <div id="" class="mt-4">
                             @if (session('status') && session('message'))
                                 <div class="alert alert-{{ session('status') }}">
                                     {!! session('message') !!}
@@ -106,8 +101,8 @@
             <div class="container-fluid service py-5 bg-light" id="service">
                 <div class="container py-5">
                     <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
-                        <h4 class="text-primary">Our Services</h4>
-                        <h1 class="display-4"> Offering the Best Consulting & Professional Services</h1>
+                        <h4 class="text-primary">Training</h4>
+                        <h1 class="display-4"> Agenda Training</h1>
                     </div>
                     <div class="row g-4 justify-content-center text-center">
 
@@ -137,9 +132,9 @@
                             </div>
                         @endforeach
 
-                        <div class="col-12 wow fadeInUp" data-wow-delay="0.1s" style="margin-top: 5%;">
+                        <div class="col-12 wow fadeInUp" data-wow-delay="0.1s">
                             <a class="btn btn-primary rounded-pill py-3 px-5 wow fadeInUp" data-wow-delay="0.1s"
-                                href="{{ route('more') }}">More Services</a>
+                                href="{{ route('more') }}">More</a>
                         </div>
                     </div>
                 </div>
@@ -247,4 +242,7 @@
         </div>
     </div>
     <!-- About End -->
+    </div>
+    </div>
+    <!-- Cek Sertifikat End -->
 @endsection
