@@ -79,6 +79,10 @@ class TrainingController extends Controller
         $request->validate([
             'nama_training' => 'required|string|max:255|unique:trainings,nama_training',
             'kode' => 'required|string|max:50|unique:trainings,kode',
+            'tanggal_mulai' => 'required|date',
+            'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
+            'cover' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'konten' => 'required|string',
         ]);
 
         $training = new Training;
@@ -117,8 +121,16 @@ class TrainingController extends Controller
     }
     public function update(Request $request, $id)
     {
-
         $training = Training::FindOrFail($id);
+
+        $request->validate([
+            'nama_training' => 'required|string|max:255|unique:trainings,nama_training,' . $training->id,
+            'kode' => 'required|string|max:50|unique:trainings,kode,' . $training->id,
+            'tanggal_mulai' => 'required|date',
+            'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
+            'cover' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'konten' => 'required|string',
+        ]);
 
         $training->nama_training = $request->nama_training;
         $training->tanggal_mulai = $request->tanggal_mulai;

@@ -187,6 +187,27 @@
             });
     </script>
 
+    <script>
+        $(document).ready(function() {
+            @if ($errors->any())
+                @if (session('editId'))
+                    // Jika ada error dan session editId, tampilkan modal edit yang sesuai
+                    $('#Edit{{ session('editId') }}').modal('show');
+                @else
+                    // Jika tidak ada editId, tampilkan modal create
+                    $('#modalCenter').modal('show');
+                @endif
+            @endif
+        });
+        
+        // @if ($errors->any())
+        //     $(document).ready(function() {
+        //         $('#modalCenter').modal('show');
+        //     });
+        // @endif
+    </script>
+
+
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>

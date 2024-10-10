@@ -87,12 +87,6 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
-                                    {{-- VALIDATION --}}
-                                    @if ($errors->has('email'))
-                                        <div class="alert alert-danger">
-                                            {{ $errors->first('email') }}
-                                        </div>
-                                    @endif
                                     <form action="{{ route('sertifikat.store') }}" method="post" role="form"
                                         enctype="multipart/form-data">
                                         @csrf
@@ -109,11 +103,15 @@
                                                             <input type="text" class="form-control"
                                                                 id="basic-icon-default-fullname" placeholder="Enter Name"
                                                                 required style="padding-left: 15px;" name="nama_penerima"
-                                                                aria-describedby="basic-icon-default-fullname2" />
+                                                                aria-describedby="basic-icon-default-fullname2"
+                                                                value="{{ old('nama_penerima') }}" />
                                                         </div>
+                                                        @error('nama_penerima')
+                                                            <small class="text-danger">{{ $message }}</small>
+                                                        @enderror
                                                     </div>
                                                 </div>
-                                                <div class="row mb-3">
+                                                <div class="row mb-3 mt-2">
                                                     <label class="col-sm-2 col-form-label"
                                                         for="basic-icon-default-company">Nama
                                                         Pelatihan</label>
@@ -124,16 +122,19 @@
                                                                     class='bx bx-category'></i></span>
                                                             <select id="defaultSelect" class="form-select" required
                                                                 name="id_training">
-                                                                <option value="">Pilih
-                                                                    Pelatihan
-                                                                </option>
+                                                                <option value="">Pilih Pelatihan</option>
                                                                 @foreach ($training as $data)
-                                                                    <option value="{{ $data->id }}">
+                                                                    <option value="{{ $data->id }}"
+                                                                        {{ old('id_training') == $data->id ? 'selected' : '' }}>
                                                                         {{ $data->nama_training }}
                                                                     </option>
                                                                 @endforeach
                                                             </select>
+
                                                         </div>
+                                                        @error('id_training')
+                                                            <small class="text-danger">{{ $message }}</small>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="row mb-3">
@@ -147,8 +148,12 @@
                                                             <input type="email" class="form-control"
                                                                 id="basic-icon-default-email" name="email"
                                                                 style="padding-left: 15px;" placeholder="Enter Email"
-                                                                required aria-describedby="basic-icon-default-email2" />
+                                                                required aria-describedby="basic-icon-default-email2"
+                                                                value="{{ old('email') }}" />
                                                         </div>
+                                                        @error('email')
+                                                            <small class="text-danger">{{ $message }}</small>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                             </div>
@@ -186,13 +191,18 @@
                             @php $no=1; @endphp
                             @foreach ($sertifikat as $data)
                                 <tr>
-                                    <td> <center> {{ $no++ }} </center></td>
+                                    <td>
+                                        <center> {{ $no++ }} </center>
+                                    </td>
                                     <td><b>{{ $data->nama_penerima }}</b></td>
                                     <td><b>{{ Str::limit($data->training->nama_training, 26) }}</b>
                                     </td>
-                                    <td style="color: {{ $data->status ? 'green' : 'blue' }}; font-weight: bold">
-                                        {{ $data->status ? 'Selesai Pelatihan' : 'Terdaftar' }}
+                                    <td>
+                                        <span class="badge {{ $data->status ? 'bg-success' : 'bg-primary' }}">
+                                            {{ $data->status ? 'Selesai Pelatihan' : 'Terdaftar' }}
+                                        </span>
                                     </td>
+
                                     <td>
                                         {{-- SHOW DATA --}}
                                         <a href="{{ route('sertifikat.show', $data->id) }}"
@@ -239,6 +249,9 @@
                                                                             class="form-control" name="nama_penerima"
                                                                             value="{{ $data->nama_penerima }}" />
                                                                     </div>
+                                                                    @error('nama_penerima')
+                                                                        <small class="text-danger">{{ $message }}</small>
+                                                                    @enderror
                                                                 </div>
                                                             </div>
                                                             <div class="row">
@@ -262,6 +275,9 @@
                                                                             @endforeach
                                                                         </select>
                                                                     </div>
+                                                                    @error('id_training')
+                                                                        <small class="text-danger">{{ $message }}</small>
+                                                                    @enderror
                                                                 </div>
                                                             </div>
                                                             <div class="row">
@@ -278,6 +294,9 @@
                                                                             class="form-control" name="email"
                                                                             value="{{ $data->email }}" />
                                                                     </div>
+                                                                    @error('email')
+                                                                        <small class="text-danger">{{ $message }}</small>
+                                                                    @enderror
                                                                 </div>
                                                             </div>
                                                             <div class="row">

@@ -10,6 +10,7 @@ use Dompdf\Options;
 use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Writer\PngWriter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 use Maatwebsite\Excel\Facades\Excel;
 use setasign\Fpdi\Fpdi;
@@ -70,7 +71,7 @@ class SertifikatController extends Controller
         $request->validate([
             'nama_penerima' => 'required|string|max:255',
             'id_training' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:sertifikats,email',
         ]);
 
         $sertifikat = new Sertifikat;
@@ -105,17 +106,30 @@ class SertifikatController extends Controller
     public function update(Request $request, $id)
     {
         $sertifikat = Sertifikat::findOrFail($id);
+
+        $validator = Validator::make($request->all(), [
+            'nama_penerima' => 'required|string|max:255',
+            'id_training' => 'required',
+            'email' => 'required|email|unique:sertifikats,email,' . $id, // Unique, kecuali untuk ID ini
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withInput() // Mengembalikan input yang sudah diisi
+                ->withErrors($validator) // Mengembalikan error
+                ->with('editId', $id); // Mengirimkan ID untuk membuka modal edit
+        }
+
+        // Proses update jika validasi berhasil
         $sertifikat->nama_penerima = $request->nama_penerima;
         $sertifikat->id_training = $request->id_training;
         $sertifikat->email = $request->email;
         $sertifikat->status = $request->status;
-
         $sertifikat->save();
 
         toast('Data has been Updated!', 'success')->position('top-end');
         return redirect()->route('sertifikat.index', ['id_training' => $request->id_training])
             ->with('success', 'Data berhasil diupdate');
-
     }
 
     public function destroy($id)

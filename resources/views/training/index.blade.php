@@ -72,15 +72,13 @@
                                                             <input type="text" class="form-control"
                                                                 id="basic-icon-default-fullname"
                                                                 placeholder="AI Development" aria-label="John Doe"
-                                                                name="nama_training"
+                                                                name="nama_training" value="{{ old('nama_training') }}"
                                                                 aria-describedby="basic-icon-default-fullname2" />
                                                         </div>
+                                                        @error('nama_training')
+                                                            <small class="text-danger">{{ $message }}</small>
+                                                        @enderror
                                                     </div>
-                                                    @error('nama_training')
-                                                        <div class="alert alert-danger mt-2">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
                                                 </div>
                                                 <div class="row mb-3">
                                                     <label class="col-sm-2 col-form-label"
@@ -91,10 +89,14 @@
                                                             <span id="basic-icon-default-company2"
                                                                 class="input-group-text"><i
                                                                     class='bx bx-calendar'></i></span>
-                                                            <input class="form-control" type="date" name="tanggal_mulai"
-                                                                id="tanggal_mulai" value="{{ date('y-m-d') }}"
-                                                                id="html5-date-input" />
+                                                            <input class="form-control" name="tanggal_mulai"
+                                                                id="tanggal_mulai" type="date"
+                                                                value="{{ old('tanggal_mulai') }}"
+                                                                value="{{ date('y-m-d') }}" id="html5-date-input" />
                                                         </div>
+                                                        @error('tanggal_mulai')
+                                                            <small class="text-danger">{{ $message }}</small>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="row mb-3">
@@ -108,8 +110,12 @@
                                                                     class='bx bx-calendar'></i></span>
                                                             <input class="form-control" name="tanggal_selesai"
                                                                 id="tanggal_selesai" type="date"
+                                                                value="{{ old('tanggal_selesai') }}"
                                                                 value="{{ date('y-m-d') }}" id="html5-date-input" />
                                                         </div>
+                                                        @error('tanggal_selesai')
+                                                            <small class="text-danger">{{ $message }}</small>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="row mb-3">
@@ -123,14 +129,13 @@
                                                             <input type="text" class="form-control"
                                                                 id="basic-icon-default-fullname" placeholder="XX-XXXX"
                                                                 aria-label="John Doe" name="kode"
+                                                                value="{{ old('kode') }}"
                                                                 aria-describedby="basic-icon-default-fullname2" />
                                                         </div>
+                                                        @error('kode')
+                                                            <small class="text-danger">{{ $message }}</small>
+                                                        @enderror
                                                     </div>
-                                                    @error('kode')
-                                                        <div class="alert alert-danger mt-2">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
                                                 </div>
                                                 <div class="row mb-3">
                                                     <label class="col-sm-2 form-label"
@@ -140,9 +145,12 @@
                                                             <span id="basic-icon-default-phone2"
                                                                 class="input-group-text"><i
                                                                     class='bx bx-image'></i></span>
-                                                            <input class="form-control" type="file" id="formFile"
-                                                                name="cover" />
+                                                            <input class="form-control" value="{{ old('cover') }}" type="file" id="formFile"
+                                                                name="cover"/>
                                                         </div>
+                                                        @error('cover')
+                                                            <small class="text-danger">{{ $message }}</small>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="row mb-3">
@@ -151,7 +159,7 @@
                                                     <div class="col-sm-9" style="width: 200px; ">
                                                         <div class="input-group input-group-merge">
                                                             <textarea id="basic-icon-default-message" class="form-control" name="konten"
-                                                                aria-label="Hi, Do you have a moment to talk Joe?" aria-describedby="basic-icon-default-message2"></textarea>
+                                                                aria-label="Hi, Do you have a moment to talk Joe?" aria-describedby="basic-icon-default-message2">{{ old('konten') }}</textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -192,7 +200,7 @@
                                     </td>
                                     <td><b>{{ $data->nama_training }}</b></td>
                                     <td>{{ $data->formatted_tanggal }}</td>
-                                    <td>{{ $data->sertifikat_count }} Peserta</td>
+                                    <td><b>{{ $data->sertifikat_count }}</b> Peserta</td>
                                     <td>
                                         {{-- SHOW DATA --}}
                                         <a href="{{ route('training.show', $data->id) }}" class="btn btn-sm btn-warning"

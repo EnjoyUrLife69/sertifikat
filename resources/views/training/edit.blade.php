@@ -32,6 +32,9 @@
                                             aria-describedby="basic-icon-default-fullname2"
                                             value="{{ $training->nama_training }}" />
                                     </div>
+                                    @error('nama_training')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -44,6 +47,9 @@
                                         <input class="form-control" type="date" name="tanggal_mulai"
                                             id="html5-date-input" value="{{ $training->tanggal_mulai }}" />
                                     </div>
+                                    @error('tanggal_mulai')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -56,6 +62,9 @@
                                         <input class="form-control" name="tanggal_selesai" type="date"
                                             id="html5-date-input" value="{{ $training->tanggal_selesai }}" />
                                     </div>
+                                    @error('tanggal_selesai')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -68,6 +77,9 @@
                                             placeholder="AI Development" aria-label="John Doe" name="kode"
                                             value="{{ $training->kode }}" aria-describedby="basic-icon-default-fullname2" />
                                     </div>
+                                    @error('kode')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -78,6 +90,9 @@
                                                 class='bx bx-image'></i></span>
                                         <input class="form-control" type="file" id="formFile" name="cover" />
                                     </div>
+                                    @error('cover')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mb-3">
