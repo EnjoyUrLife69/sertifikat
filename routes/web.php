@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 // BACKEND ROUTE
-Route::middleware('auth')->prefix('dashboard')->group(function () {
+Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     Route::resource('training', TrainingController::class);
@@ -54,6 +54,7 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
 
         return $response;
     })->name('role.index');
+    
     Route::put('role/{id}', [RoleController::class, 'update'])->name('role.update');
     Route::delete('role/{id}', [RoleController::class, 'destroy'])->name('role.destroy');
     Route::get('role/{id}', [RoleController::class, 'show'])->name('role.show');

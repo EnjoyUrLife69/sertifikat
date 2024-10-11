@@ -199,7 +199,7 @@
                 @endif
             @endif
         });
-        
+
         // @if ($errors->any())
         //     $(document).ready(function() {
         //         $('#modalCenter').modal('show');

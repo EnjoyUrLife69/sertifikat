@@ -32,7 +32,7 @@
         td {
             padding: 10px;
             text-align: left;
-            font-size: 11px;
+            font-size: 12px;
         }
 
         .status-selesai {
@@ -59,9 +59,10 @@
             text-align: center;
         }
 
-        .header-content h1,{
-            margin-top: -5%;
-            color: #0B2B8A;
+        .header-content h1,
+        {
+        margin-top: -5%;
+        color: #0B2B8A;
         }
 
         .header-content h1 {
@@ -88,16 +89,20 @@
     <div class="header">
         <div class="header-content">
             <h1 style="font-size: 30px">PT BARTECH MEDIA SOLUSI</h1>
-            <p>Jalan Holis, Ruko, Jl. Holis Regency No.B-02, Babakan, Kec. Babakan Ciparay, Kota Bandung, <br> Jawa Barat 40222</p>
+            <p>Jalan Holis, Ruko, Jl. Holis Regency No.B-02, Babakan, Kec. Babakan Ciparay, Kota Bandung, <br> Jawa
+                Barat 40222</p>
         </div>
     </div>
 
     <div class="divider"></div>
 
     <!-- Judul berdasarkan data pelatihan dari salah satu sertifikat -->
-    <h2>Data Peserta Professional Training Program <br>
-        {{ $sertifikat->first()->training ? $sertifikat->first()->training->nama_training : '-' }}
+    <h2>Data Peserta Professional Training Program
+        @if (!is_null(request()->get('id_training')))
+            <br>{{ $sertifikat->first()->training ? $sertifikat->first()->training->nama_training : '-' }}
+        @endif
     </h2>
+
 
     <!-- Table of data -->
     <table>
@@ -106,7 +111,10 @@
                 <th>No</th>
                 <th>Nama Penerima</th>
                 <th>Email</th>
-                <th>Nama Pelatihan</th>
+                @if (is_null(request()->get('id_training')))
+                    <!-- Tampilkan "Nama Pelatihan" hanya jika tidak ada filter -->
+                    <th>Nama Pelatihan</th>
+                @endif
                 <th>Nomor Sertifikat</th>
                 <th>Status</th>
             </tr>
@@ -118,7 +126,10 @@
                     <td>{{ $no++ }}</td>
                     <td>{{ $data->nama_penerima }}</td>
                     <td>{{ $data->email }}</td>
-                    <td>{{ $data->training ? $data->training->nama_training : '-' }}</td>
+                    @if (is_null(request()->get('id_training')))
+                        <!-- Tampilkan "Nama Pelatihan" hanya jika tidak ada filter -->
+                        <td>{{ $data->training ? $data->training->nama_training : '-' }}</td>
+                    @endif
                     <td>
                         @if ($data->status)
                             {{ sprintf('NO. %03d/%s/%s/%d', $data->id, $data->training->kode, 'IV', date('Y')) }}
@@ -135,5 +146,6 @@
     </table>
 
 </body>
+
 
 </html>
