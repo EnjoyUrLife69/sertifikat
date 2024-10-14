@@ -17,6 +17,13 @@ use setasign\Fpdi\Fpdi;
 
 class SertifikatController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:sertifikat-list|sertifikat-create|sertifikat-edit|sertifikat-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:sertifikat-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:sertifikat-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:sertifikat-delete', ['only' => ['destroy']]);
+    }
     public function index(Request $request)
     {
         $training = Training::all();

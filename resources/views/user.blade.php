@@ -104,7 +104,7 @@
                                     <th><center>No</center></th>
                                     <th>Username</th>
                                     <th>Email</th>
-                                    <th>Role</th>
+                                    {{-- <th>Role</th> --}}
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -115,7 +115,7 @@
                                         <td><center>{{ $no++ }}</center></td>
                                         <td><b>{{ $data->name }}</b></td>
                                         <td>{{ $data->email }}</td>
-                                        <td>{{ $data->roles->nama_role }}
+                                        {{-- <td>{{ $data->roles->nama_role }} --}}
                                         </td>
                                         <td>
                                             {{-- SHOW DATA --}}
@@ -157,7 +157,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="row">
+                                                                {{-- <div class="row">
                                                                     <div class="col mb-3">
                                                                         <label for="nameWithTitle"
                                                                             class="form-label">Roles</label>
@@ -173,13 +173,13 @@
                                                                                 @foreach ($roles as $item)
                                                                                     <option value="{{ $item->id }}"
                                                                                         {{ $item->id == $data->roles_id ? 'selected' : '' }}>
-                                                                                        {{ $item->nama_role }}
+                                                                                        {{ $item->nama_roles }}
                                                                                     </option>
                                                                                 @endforeach
                                                                             </select>
                                                                         </div>
                                                                     </div>
-                                                                </div>
+                                                                </div> --}}
                                                                 <div class="row">
                                                                     <div class="col mb-3">
                                                                         <label for="nameWithTitle"
@@ -246,7 +246,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="row">
+                                                                {{-- <div class="row">
                                                                     <div class="col mb-3">
                                                                         <label for="nameWithTitle"
                                                                             class="form-label">Roles</label>
@@ -262,13 +262,13 @@
                                                                                 @foreach ($roles as $item)
                                                                                     <option value="{{ $item->id }}"
                                                                                         {{ $item->id == $data->roles_id ? 'selected' : '' }}>
-                                                                                        {{ $item->nama_role }}
+                                                                                        {{ $item->nama_roles }}
                                                                                     </option>
                                                                                 @endforeach
                                                                             </select>
                                                                         </div>
                                                                     </div>
-                                                                </div>
+                                                                </div> --}}
                                                                 <div class="row">
                                                                     <div class="col mb-3">
                                                                         <label for="nameWithTitle"

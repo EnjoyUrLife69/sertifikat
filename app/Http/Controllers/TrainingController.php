@@ -13,6 +13,14 @@ Carbon::setLocale('id');
 
 class TrainingController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:training-list|training-create|training-edit|training-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:training-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:training-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:training-delete', ['only' => ['destroy']]);
+    }
+
     // Fungsi untuk nge format tanggal dengan ordinal
     private function formatWithOrdinal($date)
     {

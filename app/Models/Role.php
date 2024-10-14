@@ -1,26 +1,26 @@
 <?php
 
-namespace App\Models;
+// namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+// use Illuminate\Database\Eloquent\Factories\HasFactory;
+// use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
-{
-    use HasFactory;
+// class Role extends Model
+// {
+//     use HasFactory;
 
-    protected $fillable = [
-        'id',
-        'nama_role',
-        'deskripsi_role',
-    ];
+//     protected $fillable = [
+//         'id',
+//         'nama_role',
+//         'deskripsi_role',
+//     ];
 
-    public function users()
-    {
-        return $this->hasMany(users::class);
-    }
+//     public function users()
+//     {
+//         return $this->hasMany(users::class);
+//     }
 
-}
+// }
 
 
 // Schema::create('roles', function (Blueprint $table) {

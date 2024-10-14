@@ -45,7 +45,7 @@
             </ul>
         </li>
 
-        @if (Auth::check() && Auth::user()->roles_id == 2)
+        {{-- @if (Auth::check() && Auth::user()->roles_id == 2) --}}
             <li class="menu-header small text-uppercase">
                 <span class="menu-header-text">( Super Admin Only )</span>
             </li>
@@ -58,13 +58,13 @@
                 </a>
                 <ul
                     class="menu-sub {{ request()->routeIs('user.index') || request()->routeIs('role.index') ? 'show' : '' }}">
-                    <li class="menu-item {{ request()->routeIs('user.index') ? 'active' : '' }}">
-                        <a href="{{ route('user.index') }}" class="menu-link">
+                    <li class="menu-item {{ request()->routeIs('users.index') ? 'active' : '' }}">
+                        <a href="{{ route('users.index') }}" class="menu-link">
                             <div data-i18n="Account">User</div>
                         </a>
                     </li>
-                    <li class="menu-item {{ request()->routeIs('role.index') ? 'active' : '' }}">
-                        <a href="{{ route('role.index') }}" class="menu-link">
+                    <li class="menu-item {{ request()->routeIs('roles.index') ? 'active' : '' }}">
+                        <a href="{{ route('roles.index') }}" class="menu-link">
                             <div data-i18n="Account">Role</div>
                         </a>
                     </li>
@@ -72,7 +72,7 @@
 
                 </ul>
             </li>
-        @endif
+        {{-- @endif --}}
 
     </ul>
 </aside>

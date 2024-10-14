@@ -111,8 +111,8 @@
                                 @foreach ($role as $data)
                                     <tr>
                                         <td><center>{{ $no++ }}</center></td>
-                                        <td><b>{{ $data->nama_role }}</b></td>
-                                        <td>{{ $data->deskripsi_role }}</td>
+                                        <td><b>{{ $data->nama_roles }}</b></td>
+                                        <td>{{ $data->deskripsi_roles }}</td>
                                         <td>
                                             {{-- SHOW DATA --}}
                                             <!-- Button yang nge-trigger modal -->
@@ -149,8 +149,8 @@
                                                                             <input
                                                                                 style="font-weight: bold; padding-left: 15px;"
                                                                                 type="text" id="nameWithTitle" required
-                                                                                class="form-control" name="nama_role"
-                                                                                disabled value="{{ $data->nama_role }}" />
+                                                                                class="form-control" name="nama_roles"
+                                                                                disabled value="{{ $data->nama_roles }}" />
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -163,7 +163,7 @@
                                                                                 class="input-group-text"><i
                                                                                     class='bx bxs-edit-alt'></i></span>
                                                                             <textarea style="font-weight: bold; padding-left: 15px;" type="text-area" id="nameWithTitle" required
-                                                                                class="form-control" disabled name="deskripsi_role">{{ $data->deskripsi_role }}</textarea>
+                                                                                class="form-control" disabled name="deskripsi_role">{{ $data->deskripsi_roles }}</textarea>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -212,8 +212,8 @@
                                                                             <input
                                                                                 style="font-weight: bold; padding-left: 15px;"
                                                                                 type="text" id="nameWithTitle" required
-                                                                                class="form-control" name="nama_role"
-                                                                                value="{{ $data->nama_role }}" />
+                                                                                class="form-control" name="nama_roles"
+                                                                                value="{{ $data->nama_roles }}" />
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -226,7 +226,7 @@
                                                                                 class="input-group-text"><i
                                                                                     class='bx bxs-edit-alt'></i></span>
                                                                             <textarea style="font-weight: bold; padding-left: 15px;" type="text-area" id="nameWithTitle" required
-                                                                                class="form-control" name="deskripsi_role">{{ $data->deskripsi_role }}</textarea>
+                                                                                class="form-control" name="deskripsi_roles">{{ $data->deskripsi_roles }}</textarea>
                                                                         </div>
                                                                     </div>
                                                                 </div>
