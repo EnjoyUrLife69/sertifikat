@@ -30,6 +30,8 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 
     // USER
     Route::resource('users', UserController::class);
+    Route::get('/users/{id}', [UserController::class, 'index']);
+
     Route::resource('roles', RoleController::class);
 
     // ROLE

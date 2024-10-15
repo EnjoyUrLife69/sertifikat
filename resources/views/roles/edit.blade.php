@@ -38,18 +38,26 @@
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Permission</label>
                                 <div class="col-sm-10">
-                                    @foreach ($permission as $value)
-                                        <label><input type="checkbox" name="permission[{{ $value->id }}]"
-                                                value="{{ $value->id }}" class="name"
-                                                {{ in_array($value->id, $rolePermissions) ? 'checked' : '' }}>
-                                            {{ $value->name }}</label>
-                                        <br />
-                                    @endforeach
+                                    <div class="row">
+                                        @foreach ($permission as $key => $value)
+                                            <div class="col-md-3">
+                                                <label><input class="form-check-input permission-checkbox" type="checkbox" 
+                                                        name="permission[{{ $value->id }}]" value="{{ $value->id }}" class="name"
+                                                        data-group="{{ explode('-', $value->name)[0] }}" 
+                                                        data-type="{{ explode('-', $value->name)[1] }}"
+                                                        {{ in_array($value->id, $rolePermissions) ? 'checked' : '' }}>
+                                                    {{ $value->name }}</label>
+                                            </div>
+                                            @if (($key + 1) % 4 == 0) 
+                                                </div><div class="row">
+                                            @endif
+                                        @endforeach
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-5" style="margin-left: 16.6%;">
-                                    <a href="{{ route('training.index') }}" class="btn btn-danger">Cancel</a>
+                                    <a href="{{ route('roles.index') }}" class="btn btn-danger">Cancel</a>
                                 </div>
                                 <div class="col-sm-5" style="margin-left: -31.5%;">
                                     <button type="submit" class="btn btn-info">Send &nbsp;<i
@@ -63,3 +71,5 @@
         </div>
     </div>
 @endsection
+
+

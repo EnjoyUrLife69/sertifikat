@@ -45,19 +45,19 @@
             </ul>
         </li>
 
-        {{-- @if (Auth::check() && Auth::user()->roles_id == 2) --}}
+        @if (auth()->user()->can('sertifikat-list') && auth()->user()->can('training-list'))
             <li class="menu-header small text-uppercase">
                 <span class="menu-header-text">( Super Admin Only )</span>
             </li>
             {{-- 2 untuk Super Admin --}}
             <li
-                class="menu-item {{ request()->routeIs('user.index') || request()->routeIs('role.index') ? 'active open' : '' }} ">
+                class="menu-item {{ request()->routeIs('users.index') || request()->routeIs('roles.index') ? 'active open' : '' }} ">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
                     <div data-i18n="Account Settings">Role Access </div>
                 </a>
                 <ul
-                    class="menu-sub {{ request()->routeIs('user.index') || request()->routeIs('role.index') ? 'show' : '' }}">
+                    class="menu-sub {{ request()->routeIs('users.index') || request()->routeIs('roles.index') ? 'show' : '' }}">
                     <li class="menu-item {{ request()->routeIs('users.index') ? 'active' : '' }}">
                         <a href="{{ route('users.index') }}" class="menu-link">
                             <div data-i18n="Account">User</div>
@@ -68,11 +68,13 @@
                             <div data-i18n="Account">Role</div>
                         </a>
                     </li>
-                    
+
 
                 </ul>
             </li>
-        {{-- @endif --}}
+        @endif
+
+
 
     </ul>
 </aside>

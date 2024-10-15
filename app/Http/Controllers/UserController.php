@@ -14,11 +14,25 @@ use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:user-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:user-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:user-delete', ['only' => ['destroy']]);
+    }
+
     public function index(Request $request): View
     {
         $data = User::latest()->paginate(5);
+        $roles = Role::pluck('name', 'name')->all();
 
-        return view('users.index', compact('data'))
+        // Menambahkan userRole untuk setiap user
+        foreach ($data as $user) {
+            $user->userRole = $user->roles->pluck('name', 'name')->all();
+        }
+
+        return view('users.index', compact('data', 'roles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -55,6 +69,7 @@ class UserController extends Controller
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
 
+        toast('Berhasil Menambah data', 'success')->position('top-end');
         return redirect()->route('users.index')
             ->with('success', 'User created successfully');
     }
@@ -116,6 +131,7 @@ class UserController extends Controller
 
         $user->assignRole($request->input('roles'));
 
+        toast('Data Berhasil di Diubah!', 'success')->position('top-end');
         return redirect()->route('users.index')
             ->with('success', 'User updated successfully');
     }
@@ -129,6 +145,7 @@ class UserController extends Controller
     public function destroy($id): RedirectResponse
     {
         User::find($id)->delete();
+        toast('Data Berhasil di Hapus!', 'success')->position('top-end');
         return redirect()->route('users.index')
             ->with('success', 'User deleted successfully');
     }

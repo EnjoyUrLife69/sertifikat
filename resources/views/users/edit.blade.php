@@ -52,19 +52,20 @@
                                                 class='bx bx-category'></i></span>
                                         <input type="password" class="form-control" id="basic-icon-default-fullname"
                                             aria-label="John Doe" name="password"
-                                            aria-describedby="basic-icon-default-fullname2"/>
+                                            aria-describedby="basic-icon-default-fullname2" />
                                     </div>
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Confirm Password</label>
+                                <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Confirm
+                                    Password</label>
                                 <div class="col-sm-10">
                                     <div class="input-group input-group-merge">
                                         <span id="basic-icon-default-fullname2" class="input-group-text"><i
                                                 class='bx bx-category'></i></span>
                                         <input type="password" class="form-control" id="basic-icon-default-fullname"
                                             aria-label="John Doe" name="confirm-password"
-                                            aria-describedby="basic-icon-default-fullname2"/>
+                                            aria-describedby="basic-icon-default-fullname2" />
                                     </div>
                                 </div>
                             </div>
@@ -74,7 +75,7 @@
                                     <div class="input-group input-group-merge">
                                         <span id="basic-icon-default-fullname2" class="input-group-text"><i
                                                 class='bx bx-category'></i></span>
-                                        <select name="roles[]" class="form-control" multiple="multiple">
+                                        <select name="roles[]" class="form-control">
                                             @foreach ($roles as $value => $label)
                                                 <option value="{{ $value }}"
                                                     {{ isset($userRole[$value]) ? 'selected' : '' }}>
@@ -86,9 +87,10 @@
                                 </div>
                             </div>
 
+
                             <div class="row">
                                 <div class="col-sm-5" style="margin-left: 16.6%;">
-                                    <a href="{{ route('sertifikat.index') }}" class="btn btn-danger">Cancel</a>
+                                    <a href="{{ route('roles.index') }}" class="btn btn-danger">Cancel</a>
                                 </div>
                                 <div class="col-sm-5" style="margin-left: -31.5%;">
                                     <button type="submit" class="btn btn-info">Submit &nbsp;<i

@@ -34,15 +34,23 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="row mb-3">
+                           <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Permission</label>
                                 <div class="col-sm-10">
-                                    @foreach ($permission as $value)
-                                        <label><input type="checkbox" name="permission[{{ $value->id }}]"
-                                                value="{{ $value->id }}" class="name">
-                                            {{ $value->name }}</label>
-                                        <br />
-                                    @endforeach
+                                    <div class="row">
+                                        @foreach ($permission as $key => $value)
+                                            <div class="col-md-3">
+                                                <label><input class="form-check-input permission-checkbox" type="checkbox" 
+                                                        name="permission[{{ $value->id }}]" value="{{ $value->id }}" class="name"
+                                                        data-group="{{ explode('-', $value->name)[0] }}" 
+                                                        data-type="{{ explode('-', $value->name)[1] }}">
+                                                    {{ $value->name }}</label>
+                                            </div>
+                                            @if (($key + 1) % 4 == 0) 
+                                                </div><div class="row">
+                                            @endif
+                                        @endforeach
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">

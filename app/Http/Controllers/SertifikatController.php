@@ -23,6 +23,7 @@ class SertifikatController extends Controller
         $this->middleware('permission:sertifikat-create', ['only' => ['create', 'store']]);
         $this->middleware('permission:sertifikat-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:sertifikat-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:sertifikat-export', ['only' => ['exportExcel', 'exportPDF']]);
     }
     public function index(Request $request)
     {

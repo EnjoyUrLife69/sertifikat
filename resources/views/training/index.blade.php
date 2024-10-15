@@ -41,9 +41,11 @@
                 <div class="col-2">
                     <div class="mt-3">
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCenter">
-                            <i class='bx bx-plus-circle'></i> Add Data
-                        </button>
+                        @can('training-create')
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCenter">
+                                <i class='bx bx-plus-circle'></i> Add Data
+                            </button>
+                        @endcan
 
                         <!-- Modal -->
                         <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
@@ -145,8 +147,8 @@
                                                             <span id="basic-icon-default-phone2"
                                                                 class="input-group-text"><i
                                                                     class='bx bx-image'></i></span>
-                                                            <input class="form-control" value="{{ old('cover') }}" type="file" id="formFile"
-                                                                name="cover"/>
+                                                            <input class="form-control" value="{{ old('cover') }}"
+                                                                type="file" id="formFile" name="cover" />
                                                         </div>
                                                         @error('cover')
                                                             <small class="text-danger">{{ $message }}</small>
@@ -209,28 +211,32 @@
                                         </a>
 
                                         {{-- EDIT DATA --}}
-                                        <a href="{{ route('training.edit', $data->id) }}" class="btn btn-sm btn-primary"
-                                            data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
-                                            data-bs-html="true" title="<span>Edit</span>"><i class='bx bxs-edit-alt'></i>
-                                        </a>
+                                        @can('training-edit')
+                                            <a href="{{ route('training.edit', $data->id) }}" class="btn btn-sm btn-primary"
+                                                data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                                data-bs-html="true" title="<span>Edit</span>"><i class='bx bxs-edit-alt'></i>
+                                            </a>
+                                        @endcan
 
                                         {{-- DELETE DATA --}}
-                                        @if ($data->sertifikat_count == 0)
-                                            <form id="deleteForm{{ $data->id }}"
-                                                action="{{ route('training.destroy', $data->id) }}" method="POST"
-                                                style="display:inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="button" class="btn btn-sm btn-danger"
-                                                    id="deleteButton{{ $data->id }}" data-bs-toggle="tooltip"
-                                                    data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
-                                                    title="<span>Delete</span>">
-                                                    <i class='bx bx-trash'></i>
-                                                </button>
-                                            </form>
-                                        @else
-                                            &nbsp;
-                                        @endif
+                                        @can('training-delete')
+                                            @if ($data->sertifikat_count == 0)
+                                                <form id="deleteForm{{ $data->id }}"
+                                                    action="{{ route('training.destroy', $data->id) }}" method="POST"
+                                                    style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" class="btn btn-sm btn-danger"
+                                                        id="deleteButton{{ $data->id }}" data-bs-toggle="tooltip"
+                                                        data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
+                                                        title="<span>Delete</span>">
+                                                        <i class='bx bx-trash'></i>
+                                                    </button>
+                                                </form>
+                                            @else
+                                                &nbsp;
+                                            @endif
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

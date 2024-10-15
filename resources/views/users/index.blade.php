@@ -157,23 +157,232 @@
                                     <td>
                                         @if (!empty($user->getRoleNames()))
                                             @foreach ($user->getRoleNames() as $v)
-                                                <label class="badge bg-success">{{ $v }}</label>
+                                                @php
+                                                    $role = strtolower(str_replace(' ', '', $v)); // Menghapus spasi dan mengonversi role ke huruf kecil
+                                                @endphp
+                                                <label
+                                                    class="badge 
+                                                        @if ($role == 'admin') bg-primary
+                                                        @elseif($role == 'superadmin') bg-danger
+                                                        @elseif($role == 'user') bg-info
+                                                        @else bg-success @endif">
+                                                    {{ ucfirst($v) }}
+                                                    <!-- Menampilkan role dengan huruf pertama kapital -->
+                                                </label>
                                             @endforeach
                                         @endif
+
                                     </td>
                                     <td>
-                                        <a class="btn btn-info btn-sm" href="{{ route('users.show', $user->id) }}"><i
-                                                class="fa-solid fa-list"></i> Show</a>
-                                        <a class="btn btn-primary btn-sm" href="{{ route('users.edit', $user->id) }}"><i
-                                                class="fa-solid fa-pen-to-square"></i> Edit</a>
-                                        <form method="POST" action="{{ route('users.destroy', $user->id) }}"
-                                            style="display:inline">
-                                            @csrf
-                                            @method('DELETE')
+                                        {{-- SHOW DATA --}}
+                                        @can('user-edit')
+                                            <button type="button" class="btn btn-sm btn-warning"
+                                                data-bs-target="#Show{{ $user->id }}" data-bs-toggle="modal">
+                                                <i class='bx bx-show-alt' data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="Show" data-bs-offset="0,4" data-bs-html="true"></i>
+                                            </button>
+                                        @endcan
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="Show{{ $user->id }}" tabindex="-1"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="EditTitle">
+                                                            Show
+                                                            Data Sertifikat</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <form action="{{ route('users.show', $user->id) }}" method="post"
+                                                        role="form" enctype="multipart/form-data">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <div class="modal-body">
+                                                            <div class="row">
+                                                                <div class="col mb-3">
+                                                                    <label for="nameWithTitle"
+                                                                        class="form-label">Username</label>
+                                                                    <div class="input-group input-group-merge">
+                                                                        <span id="basic-icon-default-fullname2"
+                                                                            class="input-group-text"><i
+                                                                                class='bx bx-user'></i></span>
+                                                                        <input
+                                                                            style="font-weight: bold; padding-left: 15px;"
+                                                                            type="text" id="nameWithTitle" required
+                                                                            class="form-control" name="name" disabled
+                                                                            value="{{ $user->name }}" />
+                                                                    </div>
+                                                                    @error('name')
+                                                                        <small class="text-danger">{{ $message }}</small>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col mb-3">
+                                                                    <label for="nameWithTitle"
+                                                                        class="form-label">Email</label>
+                                                                    <div class="input-group input-group-merge">
+                                                                        <span id="basic-icon-default-fullname2"
+                                                                            class="input-group-text"><i
+                                                                                class='bx bx-user'></i></span>
+                                                                        <input disabled
+                                                                            style="font-weight: bold; padding-left: 15px;"
+                                                                            type="text" id="nameWithTitle" required
+                                                                            class="form-control" name="email"
+                                                                            value="{{ $user->email }}" />
+                                                                    </div>
+                                                                    @error('email')
+                                                                        <small class="text-danger">{{ $message }}</small>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col mb-3">
+                                                                    <label for="nameWithTitle"
+                                                                        class="form-label">Role</label>
+                                                                    <div class="input-group input-group-merge">
+                                                                        <span id="basic-icon-default-fullname2"
+                                                                            class="input-group-text"><i
+                                                                                class='bx bx-category'></i></span>
+                                                                        <select id="defaultSelect" class="form-select"
+                                                                            disabled name="roles[]">
+                                                                            @foreach ($roles as $value => $label)
+                                                                                <option value="{{ $value }}"
+                                                                                    @if (in_array($value, $user->userRole)) selected @endif>
+                                                                                    {{ $label }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select>
 
-                                            <button type="submit" class="btn btn-danger btn-sm"><i
-                                                    class="fa-solid fa-trash"></i> Delete</button>
-                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-outline-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary">Save
+                                                                changes</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {{-- EDIT DATA --}}
+                                        @can('user-edit')
+                                            <button type="button" class="btn btn-sm btn-primary"
+                                                data-bs-target="#Edit{{ $user->id }}" data-bs-toggle="modal">
+                                                <i class='bx bx-edit' data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="Edit" data-bs-offset="0,4" data-bs-html="true"></i>
+                                            </button>
+                                        @endcan
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="Edit{{ $user->id }}" tabindex="-1"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="EditTitle">
+                                                            Edit
+                                                            Data Sertifikat</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <form action="{{ route('users.update', $user->id) }}" method="post"
+                                                        role="form" enctype="multipart/form-data">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <div class="modal-body">
+                                                            <div class="row">
+                                                                <div class="col mb-3">
+                                                                    <label for="nameWithTitle"
+                                                                        class="form-label">Username</label>
+                                                                    <div class="input-group input-group-merge">
+                                                                        <span id="basic-icon-default-fullname2"
+                                                                            class="input-group-text"><i
+                                                                                class='bx bx-user'></i></span>
+                                                                        <input
+                                                                            style="font-weight: bold; padding-left: 15px;"
+                                                                            type="text" id="nameWithTitle" required
+                                                                            class="form-control" name="name"
+                                                                            value="{{ $user->name }}" />
+                                                                    </div>
+                                                                    @error('name')
+                                                                        <small class="text-danger">{{ $message }}</small>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col mb-3">
+                                                                    <label for="nameWithTitle"
+                                                                        class="form-label">Email</label>
+                                                                    <div class="input-group input-group-merge">
+                                                                        <span id="basic-icon-default-fullname2"
+                                                                            class="input-group-text"><i
+                                                                                class='bx bx-user'></i></span>
+                                                                        <input
+                                                                            style="font-weight: bold; padding-left: 15px;"
+                                                                            type="text" id="nameWithTitle" required
+                                                                            class="form-control" name="email"
+                                                                            value="{{ $user->email }}" />
+                                                                    </div>
+                                                                    @error('email')
+                                                                        <small class="text-danger">{{ $message }}</small>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col mb-3">
+                                                                    <label for="nameWithTitle"
+                                                                        class="form-label">Role</label>
+                                                                    <div class="input-group input-group-merge">
+                                                                        <span id="basic-icon-default-fullname2"
+                                                                            class="input-group-text"><i
+                                                                                class='bx bx-category'></i></span>
+                                                                        <select id="defaultSelect" class="form-select"
+                                                                            name="roles[]">
+                                                                            @foreach ($roles as $value => $label)
+                                                                                <option value="{{ $value }}"
+                                                                                    @if (in_array($value, $user->userRole)) selected @endif>
+                                                                                    {{ $label }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                    {{-- @error('id_training')
+                                                                        <small class="text-danger">{{ $message }}</small>
+                                                                    @enderror --}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-outline-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary">Save
+                                                                changes</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {{-- DELETE DATA --}}
+                                        @can('user-delete')
+                                            <form id="deleteForm{{ $user->id }}"
+                                                action="{{ route('users.destroy', $user->id) }}" method="POST"
+                                                style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="btn btn-sm btn-danger"
+                                                    id="deleteButton{{ $user->id }}" data-bs-toggle="tooltip"
+                                                    data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
+                                                    title="<span>Delete</span>">
+                                                    <i class='bx bx-trash'></i>
+                                                </button>
+                                            </form>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

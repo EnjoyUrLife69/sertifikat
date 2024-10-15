@@ -25,35 +25,32 @@ class RoleController extends Controller
         $this->middleware('permission:role-delete', ['only' => ['destroy']]);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request): View
     {
+        // Ambil semua roles
         $roles = Role::orderBy('id', 'DESC')->paginate(5);
-        return view('roles.index', compact('roles'))
+
+        // Ambil semua permission untuk digunakan di checkbox
+        $permission = Permission::get();
+
+        // Mendapatkan permissions untuk setiap role di dalam loop
+        foreach ($roles as $role) {
+            $role->permissions = DB::table('role_has_permissions')
+                ->where('role_has_permissions.role_id', $role->id)
+                ->pluck('role_has_permissions.permission_id', 'role_has_permissions.permission_id')
+                ->all();
+        }
+
+        return view('roles.index', compact('roles', 'permission'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create(): View
     {
         $permission = Permission::get();
         return view('roles.create', compact('permission'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request): RedirectResponse
     {
         $this->validate($request, [
@@ -69,15 +66,11 @@ class RoleController extends Controller
         $role = Role::create(['name' => $request->input('name')]);
         $role->syncPermissions($permissionsID);
 
+        toast('Data has been Created!', 'success')->position('top-end');
         return redirect()->route('roles.index')
             ->with('success', 'Role created successfully');
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id): View
     {
         $role = Role::find($id);
@@ -88,12 +81,6 @@ class RoleController extends Controller
         return view('roles.show', compact('role', 'rolePermissions'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id): View
     {
         $role = Role::find($id);
@@ -105,13 +92,6 @@ class RoleController extends Controller
         return view('roles.edit', compact('role', 'permission', 'rolePermissions'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id): RedirectResponse
     {
         $this->validate($request, [
@@ -130,6 +110,7 @@ class RoleController extends Controller
 
         $role->syncPermissions($permissionsID);
 
+        toast('Data Berhasil di edit!', 'success')->position('top-end');
         return redirect()->route('roles.index')
             ->with('success', 'Role updated successfully');
     }
@@ -142,6 +123,8 @@ class RoleController extends Controller
     public function destroy($id): RedirectResponse
     {
         DB::table("roles")->where('id', $id)->delete();
+        toast('Data has been Deleted!', 'success')->position('top-end');
+
         return redirect()->route('roles.index')
             ->with('success', 'Role deleted successfully');
     }

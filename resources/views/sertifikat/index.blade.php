@@ -43,7 +43,8 @@
 
                 {{-- EXPORT BUTTON --}}
                 <div class="col-2">
-                    <div class="dropdown" style="margin-top: 16px; margin-left: 47px;">
+                    @can('sertifikat-export')
+                        <div class="dropdown" style="margin-top: 16px; margin-left: 47px;">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <i class='bx bx-export'></i> Export
@@ -65,16 +66,19 @@
                             </li>
                         </ul>
                     </div>
+                    @endcan
                 </div>
 
                 {{-- CREATE DATA --}}
                 <div class="col-2">
                     <div class="mt-3">
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" style="margin-left: -10px;"
-                            data-bs-target="#modalCenter">
-                            <i class='bx bx-plus-circle'></i> Add Data
-                        </button>
+                        @can('sertifikat-create')
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" style="margin-left: -10px;"
+                                data-bs-target="#modalCenter">
+                                <i class='bx bx-plus-circle'></i> Add Data
+                            </button>
+                        @endcan
 
                         <!-- Modal -->
                         <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
@@ -213,11 +217,13 @@
 
                                         {{-- EDIT DATA --}}
                                         <!-- Button yang nge-trigger modal -->
-                                        <button type="button" class="btn btn-sm btn-primary"
-                                            data-bs-target="#Edit{{ $data->id }}" data-bs-toggle="modal">
-                                            <i class='bx bx-edit' data-bs-toggle="tooltip" data-bs-placement="top"
-                                                title="Edit" data-bs-offset="0,4" data-bs-html="true"></i>
-                                        </button>
+                                        @can('sertifikat-edit')
+                                            <button type="button" class="btn btn-sm btn-primary"
+                                                data-bs-target="#Edit{{ $data->id }}" data-bs-toggle="modal">
+                                                <i class='bx bx-edit' data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="Edit" data-bs-offset="0,4" data-bs-html="true"></i>
+                                            </button>
+                                        @endcan
                                         <!-- Modal -->
                                         <div class="modal fade" id="Edit{{ $data->id }}" tabindex="-1"
                                             aria-hidden="true">
@@ -336,18 +342,20 @@
                                         </div>
 
                                         {{-- DELETE DATA --}}
-                                        <form id="deleteForm{{ $data->id }}"
-                                            action="{{ route('sertifikat.destroy', $data->id) }}" method="POST"
-                                            style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="button" class="btn btn-sm btn-danger"
-                                                id="deleteButton{{ $data->id }}" data-bs-toggle="tooltip"
-                                                data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
-                                                title="<span>Delete</span>">
-                                                <i class='bx bx-trash'></i>
-                                            </button>
-                                        </form>
+                                        @can('sertifikat-delete')
+                                            <form id="deleteForm{{ $data->id }}"
+                                                action="{{ route('sertifikat.destroy', $data->id) }}" method="POST"
+                                                style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="btn btn-sm btn-danger"
+                                                    id="deleteButton{{ $data->id }}" data-bs-toggle="tooltip"
+                                                    data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
+                                                    title="<span>Delete</span>">
+                                                    <i class='bx bx-trash'></i>
+                                                </button>
+                                            </form>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach
