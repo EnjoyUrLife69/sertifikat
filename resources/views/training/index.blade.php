@@ -148,7 +148,7 @@
                                                                 class="input-group-text"><i
                                                                     class='bx bx-image'></i></span>
                                                             <input class="form-control" value="{{ old('cover') }}"
-                                                                type="file" id="formFile" name="cover" />
+                                                                type="file" id="formFile" name="cover" required />
                                                         </div>
                                                         @error('cover')
                                                             <small class="text-danger">{{ $message }}</small>

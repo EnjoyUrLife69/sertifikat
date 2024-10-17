@@ -34,21 +34,6 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 
     Route::resource('roles', RoleController::class);
 
-    // ROLE
-    // Route::get('/role', function (Request $request) {
-    //     $middleware = new CheckRole();
-    //     // Menjalankan middleware secara manual dengan passing request
-    //     $response = $middleware->handle($request, function ($request) {
-    //         return app()->call('App\Http\Controllers\RoleController@index');
-    //     }, 2); // Ganti 2 dengan ID role untuk Super Admin
-
-    //     return $response;
-    // })->name('role.index');
-
-    // Route::put('role/{id}', [RoleController::class, 'update'])->name('role.update');
-    // Route::delete('role/{id}', [RoleController::class, 'destroy'])->name('role.destroy');
-    // Route::get('role/{id}', [RoleController::class, 'show'])->name('role.show');
-
 });
 
 // FRONTEND ROUTE

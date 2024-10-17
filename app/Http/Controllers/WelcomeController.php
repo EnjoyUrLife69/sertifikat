@@ -26,6 +26,7 @@ class WelcomeController extends Controller
 
         return $date->format('j') . $suffix;
     }
+
     public function index()
     {
         $limitTraining = Training::orderBy('created_at', 'desc')->limit(4)->get();
@@ -50,6 +51,7 @@ class WelcomeController extends Controller
                 $data->formatted_tanggal_training = "{$formattedstartTanggal} - {$formattedendTanggal}";
             }
         }
+
         $limitTrainingfooter = Training::orderBy('created_at', 'desc')->limit(2)->get();
         foreach ($limitTrainingfooter as $data) {
             $startTanggal = Carbon::parse($data->tanggal_mulai);
@@ -75,8 +77,13 @@ class WelcomeController extends Controller
 
         return view('welcome', compact('limitTraining', 'limitTrainingfooter'));
     }
+
     public function checkCertificate(Request $request)
     {
+        $request->validate([
+            'nomor_sertifikat' => 'required',
+        ]);
+
         // Ambil input nomor sertifikat dari query atau form
         $nomorSertifikatInput = $request->input('nomor_sertifikat') ?? $request->query('nomor_sertifikat');
 
@@ -85,9 +92,14 @@ class WelcomeController extends Controller
 
         if (count($parts) !== 4) {
             // Jika format tidak sesuai
+            $limitTraining = Training::orderBy('created_at', 'desc')->limit(4)->get();
+            $limitTrainingfooter = Training::orderBy('created_at', 'desc')->limit(2)->get();
+
             return view('welcome', [
                 'status' => 'danger',
                 'message' => 'Format nomor sertifikat tidak valid. Silakan cek kembali.',
+                'limitTraining' => $limitTraining,
+                'limitTrainingfooter' => $limitTrainingfooter,
             ]);
         }
 
@@ -100,12 +112,11 @@ class WelcomeController extends Controller
         $limitTraining = Training::orderBy('created_at', 'desc')->limit(4)->get();
         $limitTrainingfooter = Training::orderBy('created_at', 'desc')->limit(2)->get();
 
-        // Format tanggal untuk $limitTraining
+        // Format tanggal untuk $limitTraining dan $limitTrainingfooter
         foreach ($limitTraining as $data) {
             $startTanggal = Carbon::parse($data->tanggal_mulai);
             $endTanggal = Carbon::parse($data->tanggal_selesai);
 
-            // Format dates with ordinal suffix
             $formattedstartTanggal = $this->formatWithOrdinal($startTanggal);
             $formattedendTanggal = $this->formatWithOrdinal($endTanggal);
 
@@ -115,18 +126,17 @@ class WelcomeController extends Controller
 
                 $data->formatted_tanggal_training = "{$formattedMonth} {$formattedstartTanggal} - {$formattedendTanggal} , {$formattedYear}";
             } else {
-                // Different months
                 $formattedstartTanggal = $startTanggal->format('F j');
                 $formattedendTanggal = $endTanggal->format('F j ,Y');
 
                 $data->formatted_tanggal_training = "{$formattedstartTanggal} - {$formattedendTanggal}";
             }
         }
+
         foreach ($limitTrainingfooter as $data) {
             $startTanggal = Carbon::parse($data->tanggal_mulai);
             $endTanggal = Carbon::parse($data->tanggal_selesai);
 
-            // Format dates with ordinal suffix
             $formattedstartTanggal = $this->formatWithOrdinal($startTanggal);
             $formattedendTanggal = $this->formatWithOrdinal($endTanggal);
 
@@ -136,7 +146,6 @@ class WelcomeController extends Controller
 
                 $data->formatted_tanggal_training = "{$formattedMonth} {$formattedstartTanggal} - {$formattedendTanggal} , {$formattedYear}";
             } else {
-                // Different months
                 $formattedstartTanggal = $startTanggal->format('F j');
                 $formattedendTanggal = $endTanggal->format('F j ,Y');
 
@@ -149,7 +158,6 @@ class WelcomeController extends Controller
             $startDate = Carbon::parse($training->tanggal_mulai);
             $endDate = Carbon::parse($training->tanggal_selesai);
 
-            // Format tanggal dengan suffix ordinal
             $formattedStartDate = $this->formatWithOrdinal($startDate);
             $formattedEndDate = $this->formatWithOrdinal($endDate);
 
@@ -164,43 +172,44 @@ class WelcomeController extends Controller
             }
 
             $message = "
-
-        <table class='table text-start' style='width:700px; font-weight: bold; color: #105233;'>
-            <tr>
-
-                <th>Nomor Sertifikat</th>
-                <th> : </th>
-                <th>{$nomorSertifikatInput}</th>
-
-            </tr>
-            <tr>
-                <th>Nama Penerima</th>
-                <th> : </th>
-                <th>{$sertifikat->nama_penerima}</th>
-            </tr>
-            <tr>
-                <th>Nama Training</th>
-                <th> : </th>
-                <th>{$training->nama_training}</th>
-            </tr>
-            <tr>
-                <th>Tanggal Pelatihan</th>
-                <th> : </th>
-                <th>{$formattedTanggal}</th>
-            </tr>
-        </table>
-    ";
+                <table class='table text-start' style='width:700px; font-weight: bold; color: #105233;'>
+                    <tr>
+                        <th>Nomor Sertifikat</th>
+                        <th> : </th>
+                        <th>{$nomorSertifikatInput}</th>
+                    </tr>
+                    <tr>
+                        <th>Nama Penerima</th>
+                        <th> : </th>
+                        <th>{$sertifikat->nama_penerima}</th>
+                    </tr>
+                    <tr>
+                        <th>Nama Training</th>
+                        <th> : </th>
+                        <th>{$training->nama_training}</th>
+                    </tr>
+                    <tr>
+                        <th>Tanggal Pelatihan</th>
+                        <th> : </th>
+                        <th>{$formattedTanggal}</th>
+                    </tr>
+                </table>
+            ";
             return redirect(url('/') . '#result')->with([
                 'status' => 'success',
                 'message' => $message,
-            ], compact('limitTraining', 'limitTrainingfooter'));
+                'limitTraining' => $limitTraining,
+                'limitTrainingfooter' => $limitTrainingfooter,
+            ]);
 
         } else {
             // Sertifikat tidak ditemukan
             return redirect(url('/') . '#sertifikat')->with([
                 'status' => 'danger',
                 'message' => 'Sertifikat tidak ditemukan. Silakan cek kembali.',
-            ], compact('limitTraining', 'limitTrainingfooter'));
+                'limitTraining' => $limitTraining,
+                'limitTrainingfooter' => $limitTrainingfooter,
+            ]);
         }
     }
 

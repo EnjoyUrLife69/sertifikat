@@ -39,6 +39,7 @@ class PermissionTableSeeder extends Seeder
 
             //Export
             'sertifikat-export',
+            
         ];
 
         foreach ($permissions as $permission) {

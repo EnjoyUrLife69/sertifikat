@@ -24,7 +24,6 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8',
-            'roles_id' => 'required|exists:roles,id', // validasi roles_id harus ada dan valid
         ]);
 
         // Check if validation fails
@@ -37,7 +36,6 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password), // hash password sebelum simpan
-            'roles_id' => $request->roles_id,
         ]);
 
         // Return response
@@ -73,7 +71,6 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id, // memastikan email unik kecuali untuk user ini
-            'roles_id' => 'required|exists:roles,id',
         ]);
 
         // Check if validation fails
@@ -87,7 +84,6 @@ class UserController extends Controller
         if ($request->has('password')) {
             $user->password = bcrypt($request->password); // Update password jika diberikan
         }
-        $user->roles_id = $request->roles_id;
 
         // Simpan perubahan ke database
         $user->save();

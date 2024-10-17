@@ -110,16 +110,11 @@ class RoleController extends Controller
 
         $role->syncPermissions($permissionsID);
 
-        toast('Data Berhasil di edit!', 'success')->position('top-end');
+        toast('Data has been Updated!', 'success')->position('top-end');
         return redirect()->route('roles.index')
             ->with('success', 'Role updated successfully');
     }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id): RedirectResponse
     {
         DB::table("roles")->where('id', $id)->delete();
