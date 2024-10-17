@@ -58,7 +58,7 @@
                                 <div class="col-sm-10">
                                     <div class="input-group input-group-merge">
                                         <span id="basic-icon-default-fullname2" class="input-group-text"><i
-                                                class='bx bx-user'></i></span>
+                                                class='bx bx-envelope'></i></span>
                                         <input type="text" class="form-control" id="basic-icon-default-fullname"
                                             placeholder="AI Development" aria-label="John Doe" name="email" disabled
                                             style="padding-left: 15px; font-weight: bold;"

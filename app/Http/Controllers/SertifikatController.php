@@ -28,20 +28,16 @@ class SertifikatController extends Controller
     public function index(Request $request)
     {
         $training = Training::all();
-
-        // Ambil ID kategori dari request
         $id_training = $request->get('id_training');
 
-        // Jika kategori_id ada dan tidak kosong, filter artikel berdasarkan kategori tersebut
         if ($id_training) {
             $sertifikat = Sertifikat::where('id_training', $id_training)->get();
         } else {
-            // Jika tidak, ambil semua artikel
             $sertifikat = Sertifikat::orderBy('created_at', 'desc')->get();
 
         }
 
-        // Add formatted date range to each serti$sertifikat
+        // Add formatted date range to each $sertifikat
         foreach ($sertifikat as $data) {
             $startDate = Carbon::parse($data->tanggal_mulai);
             $endDate = Carbon::parse($data->tanggal_selesai);

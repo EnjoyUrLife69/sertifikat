@@ -225,7 +225,7 @@
                                                                     <div class="input-group input-group-merge">
                                                                         <span id="basic-icon-default-fullname2"
                                                                             class="input-group-text"><i
-                                                                                class='bx bx-user'></i></span>
+                                                                                class='bx bx-envelope'></i></span>
                                                                         <input disabled
                                                                             style="font-weight: bold; padding-left: 15px;"
                                                                             type="text" id="nameWithTitle" required
@@ -321,7 +321,7 @@
                                                                     <div class="input-group input-group-merge">
                                                                         <span id="basic-icon-default-fullname2"
                                                                             class="input-group-text"><i
-                                                                                class='bx bx-user'></i></span>
+                                                                                class='bx bx-envelope'></i></span>
                                                                         <input
                                                                             style="font-weight: bold; padding-left: 15px;"
                                                                             type="text" id="nameWithTitle" required

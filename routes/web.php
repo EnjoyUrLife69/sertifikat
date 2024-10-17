@@ -33,7 +33,6 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/users/{id}', [UserController::class, 'index']);
 
     Route::resource('roles', RoleController::class);
-
 });
 
 // FRONTEND ROUTE
