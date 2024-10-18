@@ -21,7 +21,6 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::resource('sertifikat', SertifikatController::class);
     Route::get('/sertifikat/{id}/preview', [SertifikatController::class, 'printCertificate'])->name('sertifikat.preview')->defaults('isPreview', true);
     Route::get('/sertifikat/{id}/print', [SertifikatController::class, 'printCertificate'])->name('sertifikat.print');
-    Route::post('/sertifikat/{id}/status', [SertifikatController::class, 'status'])->name('sertifikat.status');
 
     Route::get('/export-excel', [SertifikatController::class, 'exportExcel'])->name('export.excel');
     Route::get('/export-pdf', [SertifikatController::class, 'exportPDF'])->name('export.pdf');
